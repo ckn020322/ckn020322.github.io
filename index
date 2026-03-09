@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Focus | ADHD-Friendly Korean Learning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Orange & White Color Palette */
+            --primary-orange: #FF6B35;
+            --orange-light: #FF9A3C;
+            --orange-dark: #E55A2B;
+            --orange-subtle: #FFF3E0;
+            --white: #FFFFFF;
+            --off-white: #F8F9FA;
+            --gray-light: #E9ECEF;
+            --gray-medium: #ADB5BD;
+            --gray-dark: #495057;
+            --gray-text: #343A40;
+            --success: #38B000;
+            --warning: #FF9E00;
+            --error: #D00000;
+            
+            /* Typography */
+            --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-body: 'Open Sans', system-ui, sans-serif;
+            --font-korean: 'Noto Sans KR', sans-serif;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-xxl: 3rem;
+            --space-xxxl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-round: 50%;
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(255, 107, 53, 0.1);
+            --shadow-md: 0 4px 16px rgba(255, 107, 53, 0.15);
+            --shadow-lg: 0 8px 32px rgba(255, 107, 53, 0.2);
+            --shadow-focus: 0 0 0 3px rgba(255, 107, 53, 0.3);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--white);
+            color: var(--gray-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header & Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--orange-subtle);
+            padding: var(--space-md) 0;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-orange);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.5rem;
+            font-family: var(--font-korean);
+        }
+        
+        .logo-text {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--primary-orange);
+        }
+        
+        .logo-text span {
+            color: var(--gray-text);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: var(--space-xl);
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            font-family: var(--font-heading);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            transition: var(--transition-normal);
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-orange);
+            background: var(--orange-subtle);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-orange);
+            font-weight: 600;
+        }
+        
+        .nav-links a.active:after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-orange);
+            border-radius: var(--radius-round);
+        }
+        
+        .cta-button {
+            background: var(--primary-orange);
+            color: white;
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            transition: var(--transition-normal);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+        
+        .cta-button:hover {
+            background: var(--orange-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-orange);
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 120px;
+            background: linear-gradient(135deg, var(--off-white) 0%, var(--white) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--orange-subtle) 0%, transparent 70%);
+            opacity: 0.5;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xxxl);
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: var(--space-lg);
+            color: var(--gray-text);
+        }
+        
+        .hero-content h1 span {
+            color: var(--primary-orange);
+            position: relative;
+        }
+        
+        .hero-content h1 span:after {
+            content: "";
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--orange-subtle);
+            z-index: -1;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--gray-medium);
+            margin-bottom: var(--space-xl);
+            font-weight: 400;
+        }
+        
+        .hero-subtitle .korean {
+            font-family: var(--font-korean);
+            font-weight: 500;
+            color: var(--primary-orange);
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: var(--space-xl);
+            margin: var(--space-xl) 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-orange);
+            font-family: var(--font-heading);
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray-medium);
+            margin-top: var(--space-xs);
+        }
+        
+        .hero-visual {
+            position: relative;
+        }
+        
+        .app-mockup {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-lg);
+            transform: perspective(1000px) rotateY(-10deg);
+            border: 2px solid var(--orange-subtle);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .app-mockup:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-orange), var(--orange-light));
+        }
+        
+        .app-screen {
+            background: var(--off-white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            font-family: var(--font-heading);
+        }
+        
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .app-title {
+            font-weight: 700;
+            color: var(--primary-orange);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .app-title .korean {
+            font-family: var(--font-korean);
+        }
+        
+        .adhd-badge {
+            background: var(--orange-subtle);
+            color: var(--primary-orange);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-round);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .app-content {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .vocab-game {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .korean-word {
+            background: var(--orange-subtle);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            text-align: center;
+            font-family: var(--font-korean);
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: grab;
+            transition: var(--transition-normal);
+        }
+        
+        .korean-word:hover {
+            background: var(--primary-orange);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .english-word {
+            background: var(--off-white);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            text-align: center;
+            font-weight: 500;
+            border: 2px dashed var(--gray-light);
+            transition: var(--transition-normal);
+        }
+        
+        .english-word.active {
+            border-color: var(--primary-orange);
+            background: var(--orange-subtle);
+        }
+        
+        .app-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            color: var(--gray-medium);
+            font-size: 0.9rem;
+        }
+        
+        .timer-circle {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-orange);
+            border-radius: var(--radius-round);
+            position: relative;
+        }
+        
+        .timer-circle:before {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            border-radius: var(--radius-round);
+            background: var(--primary-orange);
+            animation: timer-pulse 2s infinite;
+        }
+        
+        @keyframes timer-pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        
+        /* Problem Solution Section */
+        .problem-solution {
+            padding: var(--space-xxxl) 0;
+            background: var(--white);
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto var(--space-xxxl);
+            padding: 0 var(--space-xl);
+        }
+        
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--space-lg);
+            color: var(--gray-text);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-orange);
+            border-radius: var(--radius-round);
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-medium);
+            line-height: 1.6;
+        }
+        
+        .comparison-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xxxl);
+        }
+        
+        .problem-side, .solution-side {
+            padding: var(--space-xl);
+            border-radius: var(--radius-xl);
+        }
+        
+        .problem-side {
+            background: var(--off-white);
+            border: 2px solid var(--gray-light);
+        }
+        
+        .solution-side {
+            background: linear-gradient(135deg, var(--orange-subtle) 0%, var(--white) 100%);
+            border: 2px solid var(--primary-orange);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .side-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .problem-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gray-medium);
+            border-radius: var(--radius-round);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .solution-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-orange);
+            border-radius: var(--radius-round);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .side-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gray-text);
+        }
+        
+        .problem-list, .solution-list {
+            list-style: none;
+        }
+        
+        .problem-list li, .solution-list li {
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+        }
+        
+        .problem-list li {
+            background: white;
+            border-left: 4px solid var(--gray-medium);
+        }
+        
+        .solution-list li {
+            background: white;
+            border-left: 4px solid var(--primary-orange);
+        }
+        
+        .list-icon {
+            color: var(--gray-medium);
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
+        
+        .solution-list .list-icon {
+            color: var(--primary-orange);
+        }
+        
+        .list-content h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: var(--space-xs);
+            color: var(--gray-text);
+        }
+        
+        .list-content p {
+            color: var(--gray-medium);
+            font-size: 0.95rem;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: var(--space-xxxl) 0;
+            background: var(--off-white);
+        }
+        
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-xl);
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-normal);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--orange-subtle);
+        }
+        
+        .feature-card:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-orange), var(--orange-light));
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--orange-subtle);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-lg);
+            color: var(--primary-orange);
+            font-size: 1.8rem;
+        }
+        
+        .feature-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: var(--space-md);
+            color: var(--gray-text);
+        }
+        
+        .feature-desc {
+            color: var(--gray-medium);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .feature-benefit {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm);
+            background: var(--off-white);
+            border-radius: var(--radius-md);
+            margin-top: var(--space-md);
+            font-size: 0.9rem;
+        }
+        
+        .benefit-icon {
+            color: var(--success);
+        }
+        
+        /* Demo Section */
+        .demo {
+            padding: var(--space-xxxl) 0;
+            background: white;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xxxl);
+            align-items: center;
+        }
+        
+        .demo-content h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: var(--space-lg);
+            color: var(--gray-text);
+        }
+        
+        .demo-steps {
+            list-style: none;
+            margin: var(--space-xl) 0;
+        }
+        
+        .demo-steps li {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+            background: var(--off-white);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--primary-orange);
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-orange);
+            color: white;
+            border-radius: var(--radius-round);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-family: var(--font-heading);
+            flex-shrink: 0;
+        }
+        
+        .step-content h4 {
+            font-family: var(--font-heading);
+            margin-bottom: var(--space-xs);
+            color: var(--gray-text);
+        }
+        
+        .step-content p {
+            color: var(--gray-medium);
+            font-size: 0.95rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: var(--space-xxxl) 0;
+            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--orange-light) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+        }
+        
+        .cta-title {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            margin-bottom: var(--space-lg);
+            font-weight: 800;
+        }
+        
+        .cta-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: var(--space-xxxl);
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: var(--space-lg);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button-secondary {
+            background: white;
+            color: var(--primary-orange);
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            transition: var(--transition-normal);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .cta-button-secondary:hover {
+            background: var(--off-white);
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--gray-text);
+            color: white;
+            padding: var(--space-xxxl) 0 var(--space-xl);
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-xxxl);
+            margin-bottom: var(--space-xxxl);
+        }
+        
+        .footer-column h3 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            margin-bottom: var(--space-lg);
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: var(--space-sm);
+        }
+        
+        .footer-links a {
+            color: var(--gray-light);
+            text-decoration: none;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(4px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: var(--space-xl);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray-light);
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+            justify-content: center;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-round);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition-normal);
+        }
+        
+        .social-link:hover {
+            background: var(--primary-orange);
+            transform: translateY(-2px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-container,
+            .demo-container {
+                grid-template-columns: 1fr;
+                gap: var(--space-xxl);
+            }
+            
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-xxl);
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 var(--space-lg);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                padding: 140px 0 80px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: var(--space-lg);
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-title {
+                font-size: 2.2rem;
+            }
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .delay-2 { animation-delay: 0.2s; opacity: 0; }
+        .delay-3 { animation-delay: 0.3s; opacity: 0; }
+        .delay-4 { animation-delay: 0.4s; opacity: 0; }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">ㄱ</div>
+                <div class="logo-text">K<span>-Focus</span></div>
+            </a>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Learn</a></li>
+                    <li><a href="#">Games</a></li>
+                    <li><a href="#">Progress</a></li>
+                    <li><a href="#">Resources</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+            
+            <a href="#" class="cta-button">
+                <i class="fas fa-play"></i>
+                Start Learning
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content fade-in-up">
+                <h1>Korean Learning <span>Reimagined for ADHD Brains</span></h1>
+                <p class="hero-subtitle">
+                    Neuroscience-backed, culturally immersive Korean learning designed specifically for ADHD learners. 
+                    <span class="korean">한국어 학습을 ADHD 친화적으로 재구성했습니다.</span>
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">5-min</div>
+                        <div class="stat-label">Micro Sessions</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">87%</div>
+                        <div class="stat-label">Focus Improvement</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2.3x</div>
+                        <div class="stat-label">Retention Rate</div>
+                    </div>
+                </div>
+                
+                <div class="cta-buttons">
+                    <a href="#demo" class="cta-button">
+                        <i class="fas fa-gamepad"></i>
+                        Try Interactive Demo
+                    </a>
+                    <a href="#features" class="cta-button-secondary">
+                        <i class="fas fa-brain"></i>
+                        Learn How It Works
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-visual fade-in-up delay-1">
+                <div class="app-mockup float-animation">
+                    <div class="app-screen">
+                        <div class="app-header">
+                            <div class="app-title">
+                                <span class="korean">K-Focus 한국어</span>
+                                <div class="adhd-badge">ADHD Mode: ON</div>
+                            </div>
+                            <div class="timer">
+                                <div class="timer-circle"></div>
+                                <span>Focus: 5 min</span>
+                            </div>
+                        </div>
+                        
+                        <div class="app-content">
+                            <h4 style="margin-bottom: var(--space-md); color: var(--gray-text);">Vocabulary Matching</h4>
+                            <p style="color: var(--gray-medium); margin-bottom: var(--space-lg); font-size: 0.9rem;">Drag Korean word to match English meaning</p>
+                            
+                            <div class="vocab-game">
+                                <div class="korean-word">사과</div>
+                                <div class="english-word" id="target1">Drag here</div>
+                                <div class="korean-word">학교</div>
+                                <div class="english-word" id="target2">Drag here</div>
+                                <div class="korean-word">친구</div>
+                                <div class="english-word" id="target3">Drag here</div>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: var(--space-lg);">
+                                <button class="cta-button" style="padding: var(--space-sm) var(--space-lg); font-size: 0.9rem;">
+                                    <i class="fas fa-volume-up"></i>
+                                    Hear Pronunciation
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="app-footer">
+                            <div style="color: var(--success); font-weight: 600;">
+                                <i class="fas fa-check-circle"></i>
+                                3/5 Completed
+                            </div>
+                            <button style="background: none; border: none; color: var(--gray-medium); cursor: pointer;">
+                                <i class="fas fa-forward"></i>
+                                Skip
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem & Solution Section -->
+    <section class="problem-solution" id="problem-solution">
+        <div class="section-header fade-in-up">
+            <h2 class="section-title">Why Traditional Apps Fail ADHD Learners</h2>
+            <p class="section-subtitle">And how K-Focus provides a neuroscience-backed solution</p>
+        </div>
+        
+        <div class="comparison-grid">
+            <div class="problem-side fade-in-up delay-1">
+                <div class="side-header">
+                    <div class="problem-icon">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <h3 class="side-title">The Problem</h3>
+                </div>
+                
+                <ul class="problem-list">
+                    <li>
+                        <div class="list-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="list-content">
+                            <h4>Lengthy Lessons</h4>
+                            <p>Traditional 15-30 minute lessons overwhelm working memory and cause frustration for ADHD learners.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="list-content">
+                            <h4>Information Overload</h4>
+                            <p>Dense grammar explanations and vocabulary lists trigger anxiety and cognitive shutdown.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="list-content">
+                            <h4>Delayed Feedback</h4>
+                            <p>Lack of immediate reinforcement fails to engage dopamine pathways essential for ADHD motivation.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div class="list-content">
+                            <h4>Inflexible Pacing</h4>
+                            <p>One-size-fits-all approach doesn't match neurodivergent attention patterns and energy fluctuations.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="solution-side fade-in-up delay-2">
+                <div class="side-header">
+                    <div class="solution-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h3 class="side-title">The K-Focus Solution</h3>
+                </div>
+                
+                <ul class="solution-list">
+                    <li>
+                        <div class="list-icon">
+                            <i class="fas fa-hourglass-half"></i>
+                        </div>
+                        <div class="list-content">
+                            <h4>Micro-Learning Sessions</h4>
+                            <p>3-7 minute focused sessions that respect ADHD attention spans and working memory limits.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="list-content">
+                            <h4>Multisensory Engagement</h4>
+                            <p>Visual, auditory, and kinesthetic learning channels keep ADHD brains engaged and focused.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="list-content">
+                            <h4>Instant Positive Reinforcement</h4>
+                            <p>Immediate dopamine-triggering feedback celebrates effort, not just correct answers.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list-icon">
+                            <i class="fas fa-user-cog"></i>
+                        </div>
+                        <div class="list-content">
+                            <h4>Flexible, Adaptive Pathways</h4>
+                            <p>Learner-controlled progression that adapts to mood, energy, and focus levels in real-time.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-header fade-in-up">
+            <h2 class="section-title">ADHD-Optimized Learning Features</h2>
+            <p class="section-subtitle">Designed with neuroscience principles for maximum focus and retention</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card fade-in-up delay-1">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="feature-title">Brain-Friendly Design</h3>
+                <p class="feature-desc">Aligns with how ADHD brains process information, leveraging strengths in pattern recognition and creativity.</p>
+                <div class="feature-benefit">
+                    <i class="fas fa-check-circle benefit-icon"></i>
+                    <span>Reduces cognitive load by 60%</span>
+                </div>
+            </div>
+            
+            <div class="feature-card fade-in-up delay-2">
+                <div class="feature-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <h3 class="feature-title">Gamified Engagement</h3>
+                <p class="feature-desc">Points, badges, and unlockables that actually work for ADHD motivation patterns and reward systems.</p>
+                <div class="feature-benefit">
+                    <i class="fas fa-check-circle benefit-icon"></i>
+                    <span>3.2x higher engagement rate</span>
+                </div>
+            </div>
+            
+            <div class="feature-card fade-in-up delay-3">
+                <div class="feature-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 class="feature-title">Emotional Intelligence</h3>
+                <p class="feature-desc">Mood-based content adaptation and frustration prevention features that support emotional regulation.</p>
+                <div class="feature-benefit">
+                    <i class="fas fa-check-circle benefit-icon"></i>
+                    <span>74% reduction in learning anxiety</span>
+                </div>
+            </div>
+            
+            <div class="feature-card fade-in-up delay-4">
+                <div class="feature-icon">
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+                <h3 class="feature-title">Complete Customization</h3>
+                <p class="feature-desc">Extensive personalization options for focus modes, sensory preferences, and learning styles.</p>
+                <div class="feature-benefit">
+                    <i class="fas fa-check-circle benefit-icon"></i>
+                    <span>Tailored to individual ADHD profiles</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo" id="demo">
+        <div class="demo-container">
+            <div class="demo-content fade-in-up">
+                <h2>Experience a 5-Minute Learning Session</h2>
+                <p class="section-subtitle">See how K-Focus makes Korean learning accessible and enjoyable for ADHD brains</p>
+                
+                <ul class="demo-steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Clean Launch</h4>
+                            <p>Simple home screen with one primary action button to reduce decision paralysis.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Choice-Based Start</h4>
+                            <p>Select "Game" or "Lesson" - giving control reduces anxiety and increases engagement.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Interactive Activity</h4>
+                            <p>Drag-and-drop matching with immediate audio feedback and visual reinforcement.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Positive Wrap-up</h4>
+                            <p>Celebration of effort with points earned and gentle reminder for next review.</p>
+                        </div>
+                    </li>
+                </ul>
+                
+                <div style="margin-top: var(--space-xl);">
+                    <a href="#" class="cta-button">
+                        <i class="fas fa-play-circle"></i>
+                        Launch Full Interactive Demo
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-visual fade-in-up delay-1">
+                <div class="app-mockup">
+                    <div class="app-screen">
+                        <div class="app-header">
+                            <div class="app-title">
+                                <span>Session Complete! 🎉</span>
+                            </div>
+                            <div class="timer">
+                                <i class="fas fa-star" style="color: var(--warning);"></i>
+                                <span>+50 Points</span>
+                            </div>
+                        </div>
+                        
+                        <div class="app-content" style="text-align: center;">
+                            <div style="font-size: 4rem; margin: var(--space-lg) 0; color: var(--primary-orange);">
+                                🏆
+                            </div>
+                            <h3 style="margin-bottom: var(--space-sm); color: var(--gray-text);">Great Focus!</h3>
+                            <p style="color: var(--gray-medium); margin-bottom: var(--space-lg);">
+                                You completed your 5-minute Korean session with excellent concentration.
+                            </p>
+                            
+                            <div style="background: var(--off-white); padding: var(--space-md); border-radius: var(--radius-md); margin-bottom: var(--space-lg);">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-sm);">
+                                    <span style="color: var(--gray-medium);">Vocabulary Mastered:</span>
+                                    <span style="font-weight: 600; color: var(--success);">12/15 words</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span style="color: var(--gray-medium);">Daily Streak:</span>
+                                    <span style="font-weight: 600; color: var(--primary-orange);">7 days 🔥</span>
+                                </div>
+                            </div>
+                            
+                            <p style="color: var(--gray-medium); font-size: 0.9rem;">
+                                <i class="fas fa-clock"></i>
+                                Next review suggested in <strong>2 hours</strong>
+                            </p>
+                        </div>
+                        
+                        <div class="app-footer" style="justify-content: center; gap: var(--space-lg);">
+                            <button style="background: var(--primary-orange); color: white; border: none; padding: var(--space-sm) var(--space-lg); border-radius: var(--radius-md); cursor: pointer;">
+                                Continue Learning
+                            </button>
+                            <button style="background: var(--off-white); color: var(--gray-dark); border: none; padding: var(--space-sm) var(--space-lg); border-radius: var(--radius-md); cursor: pointer;">
+                                Take a Break
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container fade-in-up">
+            <h2 class="cta-title">Ready to Transform Your Korean Learning?</h2>
+            <p class="cta-subtitle">
+                Join thousands of ADHD learners who have discovered a better way to learn Korean. 
+                No frustration, no overwhelm - just focused, enjoyable progress.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="#" class="cta-button" style="background: white; color: var(--primary-orange);">
+                    <i class="fas fa-rocket"></i>
+                    Start Free Trial
+                </a>
+                <a href="#" class="cta-button-secondary">
+                    <i class="fas fa-users"></i>
+                    Join ADHD Learning Community
+                </a>
+            </div>
+            
+            <div style="margin-top: var(--space-xxxl); display: flex; justify-content: center; gap: var(--space-xl); flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: 700;">1,000+</div>
+                    <div style="opacity: 0.9;">Early Testers</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: 700;">94%</div>
+                    <div style="opacity: 0.9;">Satisfaction Rate</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: 700;">6 mo</div>
+                    <div style="opacity: 0.9;">Beta Launch</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>K-Focus</h3>
+                <p style="color: var(--gray-light); margin-bottom: var(--space-lg);">
+                    The first Korean learning platform designed specifically for ADHD brains. 
+                    Neuroscience-backed, culturally immersive, and genuinely accessible.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Learning Features</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Vocabulary Builder</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Interactive Games</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Progress Tracking</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> ADHD Settings</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Cultural Immersion</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> ADHD Learning Guide</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Korean Culture Hub</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Research & Science</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Community Forum</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Teacher Resources</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Get Started</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Free Trial</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Pricing</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> For Schools</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Beta Testing</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2024 K-Focus. All rights reserved. Designed for ADHD brains, enjoyed by all learners.</p>
+            <p style="margin-top: var(--space-sm); font-size: 0.8rem;">
+                <a href="#" style="color: var(--gray-light); text-decoration: none;">Privacy Policy</a> • 
+                <a href="#" style="color: var(--gray-light); text-decoration: none;">Terms of Service</a> • 
+                <a href="#" style="color: var(--gray-light); text-decoration: none;">Accessibility Statement</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Interactive vocabulary game
+        const koreanWords = document.querySelectorAll('.korean-word');
+        const englishTargets = document.querySelectorAll('.english-word');
+        
+        const vocabularyPairs = {
+            '사과': 'Apple',
+            '학교': 'School',
+            '친구': 'Friend'
+        };
+        
+        koreanWords.forEach(word => {
+            word.addEventListener('dragstart', function(e) {
+                e.dataTransfer.setData('text/plain', this.textContent);
+                this.style.opacity = '0.5';
+            });
+            
+            word.addEventListener('dragend', function() {
+                this.style.opacity = '1';
+            });
+        });
+        
+        englishTargets.forEach(target => {
+            target.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.classList.add('active');
+            });
+            
+            target.addEventListener('dragleave', function() {
+                this.classList.remove('active');
+            });
+            
+            target.addEventListener('drop', function(e) {
+                e.preventDefault();
+                const koreanWord = e.dataTransfer.getData('text/plain');
+                const correctEnglish = vocabularyPairs[koreanWord];
+                
+                if (this.textContent.includes(correctEnglish) || this.textContent === 'Drag here') {
+                    this.textContent = correctEnglish;
+                    this.style.background = 'var(--success)';
+                    this.style.color = 'white';
+                    this.style.borderColor = 'var(--success)';
+                    
+                    // Play success sound (simulated)
+                    const audio = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAZGF0YQQ=');
+                    audio.play().catch(e => console.log('Audio play failed:', e));
+                    
+                    // Show success message
+                    setTimeout(() => {
+                        alert(`Correct! ${koreanWord} means "${correctEnglish}"`);
+                    }, 300);
+                } else {
+                    this.style.background = 'var(--error)';
+                    this.style.color = 'white';
+                    setTimeout(() => {
+                        this.style.background = '';
+                        this.style.color = '';
+                    }, 500);
+                }
+                
+                this.classList.remove('active');
+            });
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.background = 'white';
+                navLinks.style.padding = 'var(--space-lg)';
+                navLinks.style.boxShadow = 'var(--shadow-lg)';
+                navLinks.style.borderRadius = 'var(--radius-lg)';
+                navLinks.style.zIndex = '1000';
+            }
+        });
+        
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections for animation
+        document.querySelectorAll('.section-header, .feature-card, .comparison-grid > div, .demo-container > div').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (window.innerWidth <= 768) {
+                        navLinks.style.display = 'none';
+                    }
+                }
+            });
+        });
+        
+        // Timer animation
+        function updateTimer() {
+            const timerCircle = document.querySelector('.timer-circle:before');
+            if (timerCircle) {
+                timerCircle.style.animation = 'timer-pulse 2s infinite';
+            }
+        }
+        
+        // Initialize
+        updateTimer();
+        
+        // Add hover effect to feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
+
