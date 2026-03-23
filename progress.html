@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Focus Progress | Track Your Korean Learning Journey</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            /* Orange & White Color Palette */
+            --primary-orange: #FF6B35;
+            --orange-light: #FF9A3C;
+            --orange-dark: #E55A2B;
+            --orange-subtle: #FFF3E0;
+            --white: #FFFFFF;
+            --off-white: #F8F9FA;
+            --gray-light: #E9ECEF;
+            --gray-medium: #ADB5BD;
+            --gray-dark: #495057;
+            --gray-text: #343A40;
+            --success: #38B000;
+            --warning: #FF9E00;
+            --error: #D00000;
+            
+            /* Typography */
+            --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-body: 'Open Sans', system-ui, sans-serif;
+            --font-korean: 'Noto Sans KR', sans-serif;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-xxl: 3rem;
+            --space-xxxl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-round: 50%;
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(255, 107, 53, 0.1);
+            --shadow-md: 0 4px 16px rgba(255, 107, 53, 0.15);
+            --shadow-lg: 0 8px 32px rgba(255, 107, 53, 0.2);
+            --shadow-focus: 0 0 0 3px rgba(255, 107, 53, 0.3);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--white);
+            color: var(--gray-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header & Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--orange-subtle);
+            padding: var(--space-md) 0;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-orange);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.5rem;
+            font-family: var(--font-korean);
+        }
+        
+        .logo-text {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--primary-orange);
+        }
+        
+        .logo-text span {
+            color: var(--gray-text);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: var(--space-xl);
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            font-family: var(--font-heading);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            transition: var(--transition-normal);
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-orange);
+            background: var(--orange-subtle);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-orange);
+            font-weight: 600;
+        }
+        
+        .nav-links a.active:after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-orange);
+            border-radius: var(--radius-round);
+        }
+        
+        .cta-button {
+            background: var(--primary-orange);
+            color: white;
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            transition: var(--transition-normal);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+        
+        .cta-button:hover {
+            background: var(--orange-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-orange);
+            cursor: pointer;
+        }
+        
+        /* Progress page styles */
+        .progress-hero {
+            padding: var(--space-xxxl) var(--space-xl) var(--space-xxl);
+            background: linear-gradient(135deg, var(--orange-subtle) 0%, var(--white) 100%);
+            text-align: center;
+        }
+        
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            max-width: 1000px;
+            margin: var(--space-xxl) auto;
+            padding: 0 var(--space-xl);
+        }
+        
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--orange-subtle);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-orange);
+            font-family: var(--font-heading);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .stat-label {
+            color: var(--gray-medium);
+            font-weight: 500;
+        }
+        
+        .charts-section {
+            padding: var(--space-xxl) var(--space-xl);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .chart-container {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xxl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-light);
+        }
+        
+        .chart-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .chart-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--orange-subtle);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-orange);
+            font-size: 1.5rem;
+        }
+        
+        .chart-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-text);
+            margin: 0;
+        }
+        
+        .chart-description {
+            color: var(--gray-medium);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .chart-container canvas {
+            max-height: 400px;
+        }
+        
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gray-text);
+            text-align: center;
+            margin-bottom: var(--space-md);
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-medium);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto var(--space-xxl);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .progress-hero {
+                padding: var(--space-xxl) var(--space-lg) var(--space-xl);
+            }
+            
+            .progress-stats {
+                grid-template-columns: 1fr;
+                padding: 0 var(--space-lg);
+            }
+            
+            .charts-section {
+                padding: var(--space-xl) var(--space-lg);
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .chart-container {
+                padding: var(--space-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">ㄱ</div>
+                <div class="logo-text">K<span>-Focus</span></div>
+            </a>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">Learn</a></li>
+                    <li><a href="games.html">Games</a></li>
+                    <li><a href="progress.html" class="active">Progress</a></li>
+                    <li><a href="#">Resources</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+            
+            <a href="#" class="cta-button">
+                <i class="fas fa-play"></i>
+                Start Learning
+            </a>
+        </div>
+    </header>
+
+    <!-- Progress Hero Section -->
+    <section class="progress-hero">
+        <div class="fade-in-up">
+            <h1 class="section-title">Your Learning Progress</h1>
+            <p class="section-subtitle">
+                Track your Korean learning journey with detailed analytics and insights.
+                <span style="font-family: var(--font-korean); color: var(--primary-orange);">학습 진전을 확인하세요!</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Progress Stats -->
+    <section class="progress-stats">
+        <div class="stat-card fade-in-up">
+            <div class="stat-number">247</div>
+            <div class="stat-label">Words Learned</div>
+        </div>
+        <div class="stat-card fade-in-up">
+            <div class="stat-number">89%</div>
+            <div class="stat-label">Average Score</div>
+        </div>
+        <div class="stat-card fade-in-up">
+            <div class="stat-number">42</div>
+            <div class="stat-label">Days Active</div>
+        </div>
+        <div class="stat-card fade-in-up">
+            <div class="stat-number">TOPL 3</div>
+            <div class="stat-label">Current Level</div>
+        </div>
+    </section>
+
+    <!-- Charts Section -->
+    <section class="charts-section">
+        <!-- Vocabulary Progress Chart -->
+        <div class="chart-container fade-in-up">
+            <div class="chart-header">
+                <div class="chart-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3 class="chart-title">Vocabulary Learned Over Time</h3>
+            </div>
+            <p class="chart-description">
+                Track how many new Korean words you've mastered each week. Consistent practice leads to better retention!
+            </p>
+            <canvas id="vocabProgressChart"></canvas>
+        </div>
+
+        <!-- Skills Progress Chart -->
+        <div class="chart-container fade-in-up">
+            <div class="chart-header">
+                <div class="chart-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3 class="chart-title">Progress by Korean Skill</h3>
+            </div>
+            <p class="chart-description">
+                See your performance across different Korean language skills. Focus on areas that need improvement.
+            </p>
+            <canvas id="skillsProgressChart"></canvas>
+        </div>
+
+        <!-- Time Distribution Chart -->
+        <div class="chart-container fade-in-up">
+            <div class="chart-header">
+                <div class="chart-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3 class="chart-title">Time Spent by Activity</h3>
+            </div>
+            <p class="chart-description">
+                Understand how you spend your learning time. Balance between different activities for optimal progress.
+            </p>
+            <canvas id="timeDistributionChart"></canvas>
+        </div>
+
+        <!-- Hangul Mastery Chart -->
+        <div class="chart-container fade-in-up">
+            <div class="chart-header">
+                <div class="chart-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <h3 class="chart-title">Hangul Alphabet Mastery</h3>
+            </div>
+            <p class="chart-description">
+                Monitor your progress with Korean consonants and vowels. Master the building blocks of Korean writing.
+            </p>
+            <canvas id="hangulMasteryChart"></canvas>
+        </div>
+    </section>
+
+    <script>
+        // Chart color scheme matching the site's orange theme
+        const chartColors = {
+            primary: 'rgba(255, 107, 53, 0.8)',      // Orange
+            secondary: 'rgba(255, 154, 60, 0.8)',    // Light orange
+            accent: 'rgba(229, 90, 43, 0.8)',       // Dark orange
+            success: 'rgba(56, 176, 0, 0.8)',       // Green
+            warning: 'rgba(255, 158, 0, 0.8)',      // Yellow
+            info: 'rgba(59, 130, 246, 0.8)',        // Blue
+            purple: 'rgba(147, 51, 234, 0.8)',      // Purple
+            pink: 'rgba(236, 72, 153, 0.8)',        // Pink
+        };
+
+        // Vocabulary Progress Line Chart
+        new Chart(document.getElementById('vocabProgressChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8'],
+                datasets: [{
+                    label: 'Words Learned',
+                    data: [12, 28, 45, 38, 67, 52, 73, 89],
+                    borderColor: chartColors.primary,
+                    backgroundColor: 'rgba(255, 107, 53, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: chartColors.primary,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: true, position: 'top' },
+                    title: {
+                        display: false,
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Words Learned' },
+                        grid: { color: 'rgba(255, 107, 53, 0.1)' }
+                    },
+                    x: {
+                        title: { display: true, text: 'Week' },
+                        grid: { color: 'rgba(255, 107, 53, 0.1)' }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                }
+            }
+        });
+
+        // Skills Progress Bar Chart
+        new Chart(document.getElementById('skillsProgressChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Vocabulary', 'Grammar', 'Reading', 'Listening', 'Speaking', 'Writing'],
+                datasets: [{
+                    label: 'Proficiency Score (0-100)',
+                    data: [85, 72, 68, 91, 45, 52],
+                    backgroundColor: [
+                        chartColors.primary,
+                        chartColors.secondary,
+                        chartColors.accent,
+                        chartColors.success,
+                        chartColors.warning,
+                        chartColors.info
+                    ],
+                    borderColor: [
+                        chartColors.primary,
+                        chartColors.secondary,
+                        chartColors.accent,
+                        chartColors.success,
+                        chartColors.warning,
+                        chartColors.info
+                    ],
+                    borderWidth: 1,
+                    borderRadius: 6,
+                    borderSkipped: false,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: { display: true, text: 'Proficiency Score' },
+                        grid: { color: 'rgba(255, 107, 53, 0.1)' }
+                    },
+                    x: {
+                        title: { display: true, text: 'Skill Area' },
+                        grid: { color: 'rgba(255, 107, 53, 0.1)' }
+                    }
+                }
+            }
+        });
+
+        // Time Distribution Pie Chart
+        new Chart(document.getElementById('timeDistributionChart').getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Vocabulary Practice', 'Grammar Exercises', 'Reading Comprehension', 'Listening Activities', 'Speaking Practice'],
+                datasets: [{
+                    data: [35, 25, 20, 12, 8],
+                    backgroundColor: [
+                        chartColors.primary,
+                        chartColors.secondary,
+                        chartColors.success,
+                        chartColors.info,
+                        chartColors.purple
+                    ],
+                    borderWidth: 3,
+                    borderColor: '#fff',
+                    hoverBorderWidth: 4,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'right',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + '%';
+                            }
+                        }
+                    }
+                },
+                cutout: '60%'
+            }
+        });
+
+        // Hangul Mastery Radar Chart
+        new Chart(document.getElementById('hangulMasteryChart').getContext('2d'), {
+            type: 'radar',
+            data: {
+                labels: ['Consonants (ㄱㄷㅂ)', 'Vowels (ㅏㅓㅗ)', 'Double Consonants', 'Complex Vowels', 'Reading Speed', 'Writing Accuracy'],
+                datasets: [{
+                    label: 'Current Mastery',
+                    data: [95, 88, 76, 82, 67, 73],
+                    borderColor: chartColors.primary,
+                    backgroundColor: 'rgba(255, 107, 53, 0.2)',
+                    pointBackgroundColor: chartColors.primary,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                }, {
+                    label: 'Target Level',
+                    data: [100, 100, 90, 90, 85, 85],
+                    borderColor: chartColors.success,
+                    backgroundColor: 'rgba(56, 176, 0, 0.1)',
+                    pointBackgroundColor: chartColors.success,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: true, position: 'top' }
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 20
+                        },
+                        grid: { color: 'rgba(255, 107, 53, 0.1)' },
+                        angleLines: { color: 'rgba(255, 107, 53, 0.1)' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
