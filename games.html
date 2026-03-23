@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Focus Games | ADHD-Friendly Korean Learning Games</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Orange & White Color Palette */
+            --primary-orange: #FF6B35;
+            --orange-light: #FF9A3C;
+            --orange-dark: #E55A2B;
+            --orange-subtle: #FFF3E0;
+            --white: #FFFFFF;
+            --off-white: #F8F9FA;
+            --gray-light: #E9ECEF;
+            --gray-medium: #ADB5BD;
+            --gray-dark: #495057;
+            --gray-text: #343A40;
+            --success: #38B000;
+            --warning: #FF9E00;
+            --error: #D00000;
+            
+            /* Typography */
+            --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-body: 'Open Sans', system-ui, sans-serif;
+            --font-korean: 'Noto Sans KR', sans-serif;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-xxl: 3rem;
+            --space-xxxl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-round: 50%;
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(255, 107, 53, 0.1);
+            --shadow-md: 0 4px 16px rgba(255, 107, 53, 0.15);
+            --shadow-lg: 0 8px 32px rgba(255, 107, 53, 0.2);
+            --shadow-focus: 0 0 0 3px rgba(255, 107, 53, 0.3);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--white);
+            color: var(--gray-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header & Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--orange-subtle);
+            padding: var(--space-md) 0;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-orange);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.5rem;
+            font-family: var(--font-korean);
+        }
+        
+        .logo-text {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--primary-orange);
+        }
+        
+        .logo-text span {
+            color: var(--gray-text);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: var(--space-xl);
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            font-family: var(--font-heading);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            transition: var(--transition-normal);
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-orange);
+            background: var(--orange-subtle);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-orange);
+            font-weight: 600;
+        }
+        
+        .nav-links a.active:after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-orange);
+            border-radius: var(--radius-round);
+        }
+        
+        .cta-button {
+            background: var(--primary-orange);
+            color: white;
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            transition: var(--transition-normal);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+        
+        .cta-button:hover {
+            background: var(--orange-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-orange);
+            cursor: pointer;
+        }
+        
+        /* Game-specific styles */
+        .vocab-game {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin: var(--space-lg) 0;
+        }
+        
+        .korean-word, .english-word {
+            background: var(--white);
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .korean-word {
+            font-family: var(--font-korean);
+            font-size: 1.2rem;
+            color: var(--primary-orange);
+        }
+        
+        .english-word {
+            color: var(--gray-text);
+        }
+        
+        .korean-word:hover, .english-word:hover {
+            border-color: var(--primary-orange);
+            background: var(--orange-subtle);
+        }
+        
+        .game-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            transition: var(--transition-normal);
+        }
+        
+        .game-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .game-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--orange-subtle);
+            border-radius: var(--radius-round);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-lg);
+            font-size: 2rem;
+            color: var(--primary-orange);
+        }
+        
+        .game-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-text);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .game-description {
+            color: var(--gray-medium);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .game-difficulty {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--orange-subtle);
+            color: var(--primary-orange);
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .play-button {
+            background: var(--primary-orange);
+            color: white;
+            padding: var(--space-md) var(--space-xl);
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-normal);
+        }
+        
+        .play-button:hover {
+            background: var(--orange-dark);
+            transform: translateY(-2px);
+        }
+        
+        /* Layout */
+        .games-hero {
+            padding: var(--space-xxxl) var(--space-xl) var(--space-xxl);
+            background: linear-gradient(135deg, var(--orange-subtle) 0%, var(--white) 100%);
+            text-align: center;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-xl);
+            padding: var(--space-xxl) var(--space-xl);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gray-text);
+            margin-bottom: var(--space-md);
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-medium);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .games-hero {
+                padding: var(--space-xxl) var(--space-lg) var(--space-xl);
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+                padding: var(--space-xl) var(--space-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">ㄱ</div>
+                <div class="logo-text">K<span>-Focus</span></div>
+            </a>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">Learn</a></li>
+                    <li><a href="games.html" class="active">Games</a></li>
+                    <li><a href="#">Progress</a></li>
+                    <li><a href="#">Resources</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+            
+            <a href="#" class="cta-button">
+                <i class="fas fa-play"></i>
+                Start Learning
+            </a>
+        </div>
+    </header>
+
+    <!-- Games Hero Section -->
+    <section class="games-hero">
+        <div class="fade-in-up">
+            <h1 class="section-title">Korean Learning Games</h1>
+            <p class="section-subtitle">
+                Fun, interactive games designed for ADHD learners. 
+                <span style="font-family: var(--font-korean); color: var(--primary-orange);">게임을 통해 한국어를 재미있게 배우세요!</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Games Grid -->
+    <section class="games-section">
+        <div class="games-grid">
+            <!-- Vocabulary Matching Game -->
+            <div class="game-card fade-in-up">
+                <div class="game-icon">
+                    <i class="fas fa-puzzle-piece"></i>
+                </div>
+                <h3 class="game-title">Vocabulary Matching</h3>
+                <p class="game-description">
+                    Match Korean words with their English meanings. Perfect for building vocabulary recognition.
+                </p>
+                <span class="game-difficulty">Beginner</span>
+                <button class="play-button" onclick="startVocabGame()">
+                    <i class="fas fa-play"></i>
+                    Play Now
+                </button>
+            </div>
+
+            <!-- Pronunciation Challenge -->
+            <div class="game-card fade-in-up">
+                <div class="game-icon">
+                    <i class="fas fa-volume-up"></i>
+                </div>
+                <h3 class="game-title">Pronunciation Challenge</h3>
+                <p class="game-description">
+                    Listen to Korean words and select the correct spelling. Improve your listening skills.
+                </p>
+                <span class="game-difficulty">Intermediate</span>
+                <button class="play-button">
+                    <i class="fas fa-play"></i>
+                    Play Now
+                </button>
+            </div>
+
+            <!-- Sentence Builder -->
+            <div class="game-card fade-in-up">
+                <div class="game-icon">
+                    <i class="fas fa-cubes"></i>
+                </div>
+                <h3 class="game-title">Sentence Builder</h3>
+                <p class="game-description">
+                    Arrange Korean words to form correct sentences. Master grammar through play.
+                </p>
+                <span class="game-difficulty">Advanced</span>
+                <button class="play-button">
+                    <i class="fas fa-play"></i>
+                    Play Now
+                </button>
+            </div>
+
+            <!-- Memory Cards -->
+            <div class="game-card fade-in-up">
+                <div class="game-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="game-title">Memory Cards</h3>
+                <p class="game-description">
+                    Flip cards to match Korean characters with their romanization. Boost memory retention.
+                </p>
+                <span class="game-difficulty">Beginner</span>
+                <button class="play-button">
+                    <i class="fas fa-play"></i>
+                    Play Now
+                </button>
+            </div>
+
+            <!-- Speed Typing -->
+            <div class="game-card fade-in-up">
+                <div class="game-icon">
+                    <i class="fas fa-keyboard"></i>
+                </div>
+                <h3 class="game-title">Speed Typing</h3>
+                <p class="game-description">
+                    Type Korean words as fast as you can. Improve your typing speed and accuracy.
+                </p>
+                <span class="game-difficulty">Intermediate</span>
+                <button class="play-button">
+                    <i class="fas fa-play"></i>
+                    Play Now
+                </button>
+            </div>
+
+            <!-- Cultural Quiz -->
+            <div class="game-card fade-in-up">
+                <div class="game-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h3 class="game-title">Cultural Quiz</h3>
+                <p class="game-description">
+                    Test your knowledge of Korean culture while learning language. Fun facts included!
+                </p>
+                <span class="game-difficulty">All Levels</span>
+                <button class="play-button">
+                    <i class="fas fa-play"></i>
+                    Play Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vocabulary Game Demo -->
+    <section style="padding: var(--space-xxl) var(--space-xl); background: var(--off-white);">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h2 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: var(--space-lg); color: var(--gray-text);">
+                Try Our Vocabulary Matching Game
+            </h2>
+            <p style="color: var(--gray-medium); margin-bottom: var(--space-xl);">
+                Drag Korean words to match their English meanings. Get instant feedback!
+            </p>
+            
+            <div class="vocab-game" id="vocabGame">
+                <div class="korean-word" draggable="true" data-word="apple">사과</div>
+                <div class="english-word" data-target="apple">Drag here</div>
+                <div class="korean-word" draggable="true" data-word="school">학교</div>
+                <div class="english-word" data-target="school">Drag here</div>
+                <div class="korean-word" draggable="true" data-word="friend">친구</div>
+                <div class="english-word" data-target="friend">Drag here</div>
+            </div>
+            
+            <button class="cta-button" style="margin-top: var(--space-lg);" onclick="resetVocabGame()">
+                <i class="fas fa-refresh"></i>
+                Reset Game
+            </button>
+        </div>
+    </section>
+
+    <script>
+        // Simple vocabulary matching game
+        function startVocabGame() {
+            const koreanWords = document.querySelectorAll('.korean-word');
+            const englishWords = document.querySelectorAll('.english-word');
+            
+            koreanWords.forEach(word => {
+                word.addEventListener('dragstart', dragStart);
+            });
+            
+            englishWords.forEach(word => {
+                word.addEventListener('dragover', dragOver);
+                word.addEventListener('drop', drop);
+            });
+        }
+        
+        function dragStart(e) {
+            e.dataTransfer.setData('text/plain', e.target.dataset.word);
+        }
+        
+        function dragOver(e) {
+            e.preventDefault();
+        }
+        
+        function drop(e) {
+            e.preventDefault();
+            const draggedWord = e.dataTransfer.getData('text/plain');
+            const targetWord = e.target.dataset.target;
+            
+            if (draggedWord === targetWord) {
+                e.target.textContent = e.target.textContent.replace('Drag here', draggedWord.toUpperCase());
+                e.target.style.background = 'var(--success)';
+                e.target.style.color = 'white';
+                
+                // Remove the matched Korean word
+                const koreanWord = document.querySelector(`[data-word="${draggedWord}"]`);
+                koreanWord.style.opacity = '0.3';
+                koreanWord.draggable = false;
+            } else {
+                e.target.style.background = 'var(--error)';
+                setTimeout(() => {
+                    e.target.style.background = 'var(--white)';
+                }, 1000);
+            }
+        }
+        
+        function resetVocabGame() {
+            const koreanWords = document.querySelectorAll('.korean-word');
+            const englishWords = document.querySelectorAll('.english-word');
+            
+            koreanWords.forEach(word => {
+                word.style.opacity = '1';
+                word.draggable = true;
+            });
+            
+            englishWords.forEach(word => {
+                word.textContent = 'Drag here';
+                word.style.background = 'var(--white)';
+                word.style.color = 'var(--gray-text)';
+            });
+        }
+        
+        // Initialize game on page load
+        document.addEventListener('DOMContentLoaded', startVocabGame);
+    </script>
+</body>
+</html>
