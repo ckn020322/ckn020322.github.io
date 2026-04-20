@@ -862,25 +862,25 @@
             
             <div id="sentenceGame">
                 <div style="background: var(--orange-subtle); padding: var(--space-lg); border-radius: var(--radius-lg); margin-bottom: var(--space-lg);">
-                    <p style="color: var(--gray-text); margin-bottom: var(--space-md);">Target: "I eat rice" (나는 밥을 먹어요)</p>
+                    <p style="color: var(--gray-text); margin-bottom: var(--space-md);">Target: "<span id="sentenceTargetText">I eat rice</span>"</p>
                     <div id="sentenceDropZone" style="min-height: 60px; border: 2px dashed var(--primary-orange); border-radius: var(--radius-md); padding: var(--space-md); background: white; display: flex; flex-wrap: wrap; gap: var(--space-sm); align-items: center;">
-                        <span style="color: var(--gray-medium);">Drop words here...</span>
+                        <span class="sentence-placeholder" style="color: var(--gray-medium);">Drop words here...</span>
                     </div>
                 </div>
                 
-                <div style="display: flex; flex-wrap: wrap; gap: var(--space-md); justify-content: center;">
-                    <div class="sentence-word" draggable="true" data-word="나는">나는</div>
-                    <div class="sentence-word" draggable="true" data-word="밥을">밥을</div>
-                    <div class="sentence-word" draggable="true" data-word="먹어요">먹어요</div>
-                    <div class="sentence-word" draggable="true" data-word="학교에">학교에</div>
-                    <div class="sentence-word" draggable="true" data-word="갑니다">갑니다</div>
-                </div>
+                <div id="sentenceChoices" style="display: flex; flex-wrap: wrap; gap: var(--space-md); justify-content: center;"></div>
             </div>
             
-            <button class="cta-button" style="margin-top: var(--space-lg);" onclick="resetSentenceGame()">
-                <i class="fas fa-refresh"></i>
-                Reset Sentence
-            </button>
+            <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap; margin-top: var(--space-md);">
+                <button class="cta-button" onclick="resetSentenceGame()">
+                    <i class="fas fa-refresh"></i>
+                    Reset Sentence
+                </button>
+                <button class="cta-button" onclick="nextSentence()" style="background: var(--orange-dark);">
+                    <i class="fas fa-chevron-right"></i>
+                    Next Sentence
+                </button>
+            </div>
         </div>
     </section>
 
@@ -1168,17 +1168,65 @@
         }
         
         // Sentence Builder Game
+        const sentenceSets = [
+            {
+                prompt: 'I eat rice',
+                answer: ['나는', '밥을', '먹어요'],
+                choices: ['나는', '밥을', '먹어요', '학교에', '갑니다']
+            },
+            {
+                prompt: 'She goes to school',
+                answer: ['그녀는', '학교에', '가요'],
+                choices: ['그녀는', '학교에', '가요', '밥을', '먹어요']
+            },
+            {
+                prompt: 'I like kimchi',
+                answer: ['나는', '김치를', '좋아해요'],
+                choices: ['나는', '김치를', '좋아해요', '물', '사과']
+            },
+            {
+                prompt: 'He reads a book',
+                answer: ['그는', '책을', '읽어요'],
+                choices: ['그는', '책을', '읽어요', '밥을', '학교에']
+            }
+        ];
+        let currentSentenceIndex = 0;
+        
         function initSentenceGame() {
-            const words = document.querySelectorAll('.sentence-word');
             const dropZone = document.getElementById('sentenceDropZone');
-            
-            words.forEach(word => {
-                word.addEventListener('dragstart', dragStart);
-                word.addEventListener('click', () => speakText(word.textContent));
-            });
-            
             dropZone.addEventListener('dragover', dragOver);
             dropZone.addEventListener('drop', sentenceDrop);
+            loadSentence(currentSentenceIndex);
+        }
+        
+        function loadSentence(index = 0) {
+            currentSentenceIndex = index % sentenceSets.length;
+            const sentence = sentenceSets[currentSentenceIndex];
+            const targetText = document.getElementById('sentenceTargetText');
+            const dropZone = document.getElementById('sentenceDropZone');
+            const choiceContainer = document.getElementById('sentenceChoices');
+            
+            targetText.textContent = sentence.prompt;
+            dropZone.innerHTML = '<span class="sentence-placeholder" style="color: var(--gray-medium);">Drop words here...</span>';
+            dropZone.style.background = 'white';
+            
+            choiceContainer.innerHTML = '';
+            sentence.choices.forEach(choice => {
+                const wordBtn = document.createElement('div');
+                wordBtn.className = 'sentence-word';
+                wordBtn.setAttribute('draggable', 'true');
+                wordBtn.dataset.word = choice;
+                wordBtn.textContent = choice;
+                wordBtn.addEventListener('dragstart', dragStart);
+                wordBtn.addEventListener('click', () => speakText(choice));
+                choiceContainer.appendChild(wordBtn);
+            });
+        }
+        
+        function nextSentence() {
+            resetSentenceGame(false);
+            currentSentenceIndex = (currentSentenceIndex + 1) % sentenceSets.length;
+            loadSentence(currentSentenceIndex);
         }
         
         function sentenceDrop(e) {
@@ -1211,20 +1259,28 @@
                     draggedElement.style.opacity = '1';
                     wordSpan.remove();
                     e.target.style.background = 'white';
+                    if (!e.target.querySelector('.sentence-word-chip')) {
+                        const placeholderSpan = document.createElement('span');
+                        placeholderSpan.className = 'sentence-placeholder';
+                        placeholderSpan.style.color = 'var(--gray-medium)';
+                        placeholderSpan.textContent = 'Drop words here...';
+                        e.target.appendChild(placeholderSpan);
+                    }
                 });
                 
                 e.target.appendChild(wordSpan);
                 
-                // Check if sentence is complete (when all 3 target words are placed)
                 const sentenceWordsInZone = e.target.querySelectorAll('.sentence-word-chip');
-                if (sentenceWordsInZone.length === 3) {
+                const sentence = sentenceSets[currentSentenceIndex];
+                if (sentenceWordsInZone.length === sentence.answer.length) {
                     const placedWords = Array.from(sentenceWordsInZone).map(span => span.textContent);
-                    const sentence = placedWords.join(' ');
+                    const answerString = placedWords.join(' ');
+                    const targetString = sentence.answer.join(' ');
                     
-                    if (sentence === '나는 밥을 먹어요') {
+                    if (answerString === targetString) {
                         e.target.style.background = 'var(--success)';
                         setTimeout(() => {
-                            e.target.innerHTML = '<span style="color: white; font-weight: 700;">✓ Correct! 나는 밥을 먹어요 (I eat rice)</span>';
+                            e.target.innerHTML = `<span style="color: white; font-weight: 700;">✓ Correct! ${targetString}</span>`;
                         }, 300);
                     } else {
                         e.target.style.background = 'var(--error)';
@@ -1236,17 +1292,21 @@
             }
         }
         
-        function resetSentenceGame() {
-            const words = document.querySelectorAll('.sentence-word');
+        function resetSentenceGame(clearSentence = true) {
             const dropZone = document.getElementById('sentenceDropZone');
+            const choiceContainer = document.getElementById('sentenceChoices');
             
-            words.forEach(word => {
+            choiceContainer.querySelectorAll('.sentence-word').forEach(word => {
                 word.classList.remove('placed');
                 word.style.opacity = '1';
             });
             
             dropZone.innerHTML = '<span class="sentence-placeholder" style="color: var(--gray-medium);">Drop words here...</span>';
             dropZone.style.background = 'white';
+            
+            if (clearSentence) {
+                loadSentence(currentSentenceIndex);
+            }
         }
         
         // Memory Cards Game
