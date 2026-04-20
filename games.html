@@ -1197,21 +1197,36 @@
                 wordSpan.style.background = 'var(--primary-orange)';
                 wordSpan.style.color = 'white';
                 wordSpan.style.borderRadius = '4px';
+                wordSpan.style.cursor = 'pointer';
+                
+                // Allow removing words by clicking on them
+                wordSpan.addEventListener('click', function() {
+                    draggedElement.classList.remove('placed');
+                    draggedElement.style.opacity = '1';
+                    wordSpan.remove();
+                    e.target.style.background = 'white';
+                });
                 
                 e.target.appendChild(wordSpan);
                 
-                // Check if sentence is complete
-                const placedWords = Array.from(e.target.querySelectorAll('span')).map(span => span.textContent);
-                if (placedWords.length === 3) {
+                // Check if sentence is complete (when all 3 words are placed)
+                const sentenceWordsInZone = e.target.querySelectorAll('span');
+                if (sentenceWordsInZone.length === 3) {
+                    const placedWords = Array.from(sentenceWordsInZone).map(span => span.textContent);
                     const sentence = placedWords.join(' ');
+                    
+                    // Check against correct answer
                     if (sentence === '나는 밥을 먹어요') {
                         e.target.style.background = 'var(--success)';
-                        e.target.innerHTML = '<span style="color: white; font-weight: 700;">Correct! 나는 밥을 먹어요 (I eat rice)</span>';
+                        setTimeout(() => {
+                            e.target.innerHTML = '<span style="color: white; font-weight: 700;">✓ Correct! 나는 밥을 먹어요 (I eat rice)</span>';
+                        }, 300);
                     } else {
+                        // Wrong order - show error and allow retry
                         e.target.style.background = 'var(--error)';
                         setTimeout(() => {
-                            resetSentenceGame();
-                        }, 2000);
+                            e.target.style.background = 'white';
+                        }, 1500);
                     }
                 }
             }
