@@ -412,13 +412,17 @@
         }
         
         .quiz-option {
-            background: var(--white);
+            background: var(--off-white);
             border: 2px solid var(--gray-light);
             border-radius: var(--radius-md);
             padding: var(--space-md);
             font-size: 1rem;
             cursor: pointer;
             transition: var(--transition-normal);
+            color: var(--gray-dark);
+            min-height: 56px;
+            font-weight: 600;
+            text-align: center;
         }
         
         .quiz-option:hover {
@@ -430,6 +434,50 @@
             background: var(--success);
             color: white;
             border-color: var(--success);
+        }
+
+        .quiz-option.incorrect {
+            background: var(--error);
+            color: white;
+            border-color: var(--error);
+        }
+
+        .culture-item,
+        .culture-option {
+            background: var(--off-white);
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            color: var(--gray-dark);
+            text-align: center;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .culture-item.selected,
+        .culture-option.selected {
+            border-color: var(--primary-orange);
+            background: var(--orange-subtle);
+        }
+
+        .culture-item.matched,
+        .culture-option.matched {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+            cursor: default;
+        }
+
+        .culture-option.incorrect {
+            background: var(--error);
+            color: white;
+            border-color: var(--error);
         }
         
         .korean-word, .sentence-word, .memory-card, .pronunciation-option, .english-word {
@@ -731,6 +779,22 @@
                 </button>
             </div>
 
+            <!-- Reading Comprehension -->
+            <div class="game-card fade-in-up">
+                <div class="game-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h3 class="game-title">Reading Comprehension</h3>
+                <p class="game-description">
+                    Read a short paragraph and answer questions to check your understanding.
+                </p>
+                <span class="game-difficulty">Intermediate</span>
+                <button class="play-button" onclick="scrollToSection('reading-demo')">
+                    <i class="fas fa-play"></i>
+                    Play Now
+                </button>
+            </div>
+
             <!-- Memory Cards -->
             <div class="game-card fade-in-up">
                 <div class="game-icon">
@@ -763,17 +827,17 @@
                 </button>
             </div>
 
-            <!-- Cultural Quiz -->
+            <!-- Culture Match -->
             <div class="game-card fade-in-up">
                 <div class="game-icon">
-                    <i class="fas fa-question-circle"></i>
+                    <i class="fas fa-handshake"></i>
                 </div>
-                <h3 class="game-title">Cultural Quiz</h3>
+                <h3 class="game-title">Culture Match</h3>
                 <p class="game-description">
-                    Test your knowledge of Korean culture while learning language. Fun facts included!
+                    Pair Korean cultural terms with their right descriptions in this new matching game.
                 </p>
                 <span class="game-difficulty">All Levels</span>
-                <button class="play-button" onclick="scrollToSection('quiz-demo')">
+                <button class="play-button" onclick="scrollToSection('culture-demo')">
                     <i class="fas fa-play"></i>
                     Play Now
                 </button>
@@ -886,6 +950,48 @@
         </div>
     </section>
 
+    <!-- Reading Comprehension Demo -->
+    <section id="reading-demo" style="padding: var(--space-xxl) var(--space-xl); background: var(--white);">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h2 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: var(--space-lg); color: var(--gray-text);">
+                Reading Comprehension
+            </h2>
+            <p style="color: var(--gray-medium); margin-bottom: var(--space-xl);">
+                Read the paragraph and answer questions to boost your Korean reading skills.
+            </p>
+
+            <div id="readingGame" style="background: var(--orange-subtle); padding: var(--space-xl); border-radius: var(--radius-lg); margin-bottom: var(--space-xl); text-align: left;">
+                <h3 id="readingTitle" style="font-size: 1.5rem; margin-bottom: var(--space-md); color: var(--gray-text);">Paragraph 1</h3>
+                <p id="readingParagraph" style="line-height: 1.8; color: var(--gray-text); margin-bottom: var(--space-lg);">한국의 봄은 아름답습니다. 꽃들이 피고 사람들은 공원에서 산책합니다.</p>
+                <div id="readingQuestionCard" style="background: white; padding: var(--space-lg); border-radius: var(--radius-md);">
+                    <p id="readingQuestion" style="font-weight: 700; color: var(--primary-orange); margin-bottom: var(--space-md);">What season is described?</p>
+                    <div id="readingOptions" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-md);"></div>
+                    <p id="readingFeedback" style="margin-top: var(--space-lg); color: var(--gray-medium);"></p>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-md); margin-bottom: var(--space-lg);">
+                <div style="text-align: center;">
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-orange);" id="readingScore">0</div>
+                    <div style="color: var(--gray-medium);">Correct</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-orange);" id="readingProgress">1 / 2</div>
+                    <div style="color: var(--gray-medium);">Question</div>
+                </div>
+            </div>
+
+            <button class="cta-button" style="margin-top: var(--space-lg);" onclick="nextReadingQuestion()">
+                <i class="fas fa-chevron-right"></i>
+                Next Question
+            </button>
+            <button class="cta-button" style="margin-top: var(--space-lg); margin-left: var(--space-md);" onclick="resetReadingGame()">
+                <i class="fas fa-refresh"></i>
+                Restart Reading
+            </button>
+        </div>
+    </section>
+
     <!-- Memory Cards Demo -->
     <section id="memory-demo" style="padding: var(--space-xxl) var(--space-xl); background: var(--white);">
         <div style="max-width: 800px; margin: 0 auto; text-align: center;">
@@ -956,42 +1062,44 @@
         </div>
     </section>
 
-    <!-- Cultural Quiz Demo -->
-    <section id="quiz-demo" style="padding: var(--space-xxl) var(--space-xl); background: var(--white);">
+    <!-- Culture Match Demo -->
+    <section id="culture-demo" style="padding: var(--space-xxl) var(--space-xl); background: var(--white);">
         <div style="max-width: 800px; margin: 0 auto; text-align: center;">
             <h2 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: var(--space-lg); color: var(--gray-text);">
-                Cultural Quiz
+                Culture Match
             </h2>
             <p style="color: var(--gray-medium); margin-bottom: var(--space-xl);">
-                Test your knowledge of Korean culture!
+                Match Korean cultural items with their correct descriptions. Select an item, then choose the matching description.
             </p>
             
-            <div id="quizGame">
-                <div style="background: var(--orange-subtle); padding: var(--space-xl); border-radius: var(--radius-lg); margin-bottom: var(--space-lg);">
-                    <h3 id="quizQuestion" style="color: var(--gray-text); margin-bottom: var(--space-lg);">What is the traditional Korean greeting bow called?</h3>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
-                        <button class="quiz-option" data-correct="false">Jol</button>
-                        <button class="quiz-option" data-correct="true">Jol</button>
-                        <button class="quiz-option" data-correct="false">Kowtow</button>
-                        <button class="quiz-option" data-correct="false">Namaste</button>
+            <div id="cultureGame" style="background: var(--orange-subtle); padding: var(--space-xl); border-radius: var(--radius-lg); margin-bottom: var(--space-lg); text-align: left;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl);">
+                    <div>
+                        <h3 style="font-size: 1.2rem; margin-bottom: var(--space-md); color: var(--gray-text);">Cultural Items</h3>
+                        <div id="cultureItems" style="display: grid; gap: var(--space-md);"></div>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 1.2rem; margin-bottom: var(--space-md); color: var(--gray-text);">Descriptions</h3>
+                        <div id="cultureOptions" style="display: grid; gap: var(--space-md);"></div>
                     </div>
                 </div>
-                
-                <div style="display: flex; justify-content: center; gap: var(--space-xl);">
-                    <div>
-                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-orange);" id="quizScore">0</div>
-                        <div style="color: var(--gray-medium);">Correct</div>
-                    </div>
-                    <div>
-                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-orange);" id="quizTotal">5</div>
-                        <div style="color: var(--gray-medium);">Questions</div>
-                    </div>
+                <p id="cultureFeedback" style="margin-top: var(--space-lg); color: var(--gray-medium);"></p>
+            </div>
+
+            <div style="display: flex; justify-content: center; gap: var(--space-xl); margin-bottom: var(--space-lg);">
+                <div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-orange);" id="cultureScore">0</div>
+                    <div style="color: var(--gray-medium);">Matched</div>
+                </div>
+                <div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-orange);" id="cultureRemaining">4</div>
+                    <div style="color: var(--gray-medium);">Remaining</div>
                 </div>
             </div>
-            
-            <button class="cta-button" style="margin-top: var(--space-lg);" onclick="resetQuizGame()">
+
+            <button class="cta-button" style="margin-top: var(--space-lg);" onclick="resetCultureGame()">
                 <i class="fas fa-refresh"></i>
-                Restart Quiz
+                Restart Culture Match
             </button>
         </div>
     </section>
@@ -1310,7 +1418,156 @@
                 loadSentence(currentSentenceIndex);
             }
         }
-        
+
+        // Reading Comprehension Game
+        const readingExercises = [
+            {
+                paragraph: '한국의 봄은 아름답습니다. 꽃들이 피고 사람들은 공원에서 산책합니다.',
+                questions: [
+                    {
+                        question: 'What season is described?',
+                        options: ['Summer', 'Winter', 'Spring', 'Autumn'],
+                        correct: 2,
+                        explanation: 'The paragraph describes spring with flowers blooming and people walking in the park.'
+                    },
+                    {
+                        question: 'Where do people go for a walk?',
+                        options: ['Church', 'Park', 'School', 'Store'],
+                        correct: 1,
+                        explanation: 'The paragraph says people walk in the park.'
+                    }
+                ]
+            },
+            {
+                paragraph: '저는 매일 아침에 커피를 마시고 학교에 갑니다. 친구들과 함께 공부하는 것을 좋아합니다.',
+                questions: [
+                    {
+                        question: 'What does the speaker drink every morning?',
+                        options: ['Tea', 'Water', 'Coffee', 'Milk'],
+                        correct: 2,
+                        explanation: 'The speaker drinks coffee every morning.'
+                    },
+                    {
+                        question: 'Where does the speaker go after drinking coffee?',
+                        options: ['School', 'Work', 'Store', 'Park'],
+                        correct: 0,
+                        explanation: 'After coffee, the speaker goes to school.'
+                    }
+                ]
+            }
+        ];
+        let currentReadingIndex = 0;
+        let currentReadingQuestionIndex = 0;
+        let readingScore = 0;
+        let readingAnswered = false;
+
+        function initReadingGame() {
+            loadReadingExercise(currentReadingIndex);
+        }
+
+        function loadReadingExercise(index = 0) {
+            currentReadingIndex = index % readingExercises.length;
+            currentReadingQuestionIndex = 0;
+            readingScore = 0;
+            readingAnswered = false;
+
+            document.getElementById('readingScore').textContent = readingScore;
+            loadReadingQuestion();
+        }
+
+        function loadReadingQuestion() {
+            const exercise = readingExercises[currentReadingIndex];
+            const question = exercise.questions[currentReadingQuestionIndex];
+
+            document.getElementById('readingTitle').textContent = `Paragraph ${currentReadingIndex + 1}`;
+            document.getElementById('readingParagraph').textContent = exercise.paragraph;
+            document.getElementById('readingQuestion').textContent = question.question;
+            document.getElementById('readingProgress').textContent = `${currentReadingQuestionIndex + 1} / ${exercise.questions.length}`;
+            document.getElementById('readingFeedback').textContent = '';
+            readingAnswered = false;
+
+            const optionsContainer = document.getElementById('readingOptions');
+            optionsContainer.innerHTML = '';
+            question.options.forEach((optionText, optionIndex) => {
+                const optionBtn = document.createElement('button');
+                optionBtn.className = 'quiz-option';
+                optionBtn.textContent = optionText;
+                optionBtn.style.cursor = 'pointer';
+                optionBtn.style.background = 'var(--white)';
+                optionBtn.style.border = '2px solid var(--gray-light)';
+                optionBtn.style.color = 'var(--gray-text)';
+                optionBtn.style.borderRadius = 'var(--radius-md)';
+                optionBtn.style.padding = 'var(--space-md)';
+                optionBtn.addEventListener('click', () => selectReadingAnswer(optionIndex));
+                optionsContainer.appendChild(optionBtn);
+            });
+        }
+
+        function selectReadingAnswer(selectedIndex) {
+            if (readingAnswered) return;
+            readingAnswered = true;
+            const exercise = readingExercises[currentReadingIndex];
+            const question = exercise.questions[currentReadingQuestionIndex];
+            const options = document.querySelectorAll('#readingOptions .quiz-option');
+
+            options.forEach((button, index) => {
+                button.disabled = true;
+                button.style.pointerEvents = 'none';
+                if (index === question.correct) {
+                    button.style.background = 'var(--success)';
+                    button.style.color = 'white';
+                }
+            });
+
+            if (selectedIndex === question.correct) {
+                readingScore++;
+                document.getElementById('readingScore').textContent = readingScore;
+                document.getElementById('readingFeedback').textContent = 'Great job! That answer is correct.';
+            } else {
+                options[selectedIndex].style.background = 'var(--error)';
+                options[selectedIndex].style.color = 'white';
+                document.getElementById('readingFeedback').textContent = question.explanation;
+            }
+        }
+
+        function nextReadingQuestion() {
+            if (!readingAnswered) {
+                document.getElementById('readingFeedback').textContent = 'Please choose an answer before moving on.';
+                return;
+            }
+            const exercise = readingExercises[currentReadingIndex];
+
+            if (currentReadingQuestionIndex < exercise.questions.length - 1) {
+                currentReadingQuestionIndex++;
+                readingAnswered = false;
+                loadReadingQuestion();
+            } else {
+                if (currentReadingIndex < readingExercises.length - 1) {
+                    currentReadingIndex++;
+                    currentReadingQuestionIndex = 0;
+                    readingAnswered = false;
+                    document.getElementById('readingFeedback').textContent = 'Nice work! Here is the next paragraph.';
+                    loadReadingQuestion();
+                } else {
+                    document.getElementById('readingTitle').textContent = 'Reading Practice Complete!';
+                    document.getElementById('readingParagraph').textContent = 'Well done! You completed all paragraphs.';
+                    document.getElementById('readingQuestion').textContent = `Final score: ${readingScore} / ${readingExercises.reduce((sum, ex) => sum + ex.questions.length, 0)}`;
+                    document.getElementById('readingOptions').innerHTML = '';
+                    document.getElementById('readingFeedback').textContent = 'Restart anytime to practice again.';
+                    document.getElementById('readingProgress').textContent = `${exercise.questions.length} / ${exercise.questions.length}`;
+                }
+            }
+        }
+
+        function resetReadingGame() {
+            currentReadingIndex = 0;
+            currentReadingQuestionIndex = 0;
+            readingScore = 0;
+            readingAnswered = false;
+            document.getElementById('readingScore').textContent = readingScore;
+            loadReadingQuestion();
+        }
+
         // Memory Cards Game
         let flippedCards = [];
         let matchedPairs = 0;
@@ -1433,103 +1690,115 @@
             document.getElementById('typingWPM').textContent = '0';
         }
         
-        // Cultural Quiz Game
-        const quizQuestions = [
+        // Culture Match Game
+        const culturePairs = [
             {
-                question: "What is the traditional Korean greeting bow called?",
-                options: ["Jol", "Jol", "Kowtow", "Namaste"],
-                correct: 1,
-                fact: "Jol (절) is the traditional Korean bow used for greetings and respect."
+                item: 'Kimchi',
+                description: 'A spicy fermented vegetable dish and staple of Korean cuisine.'
             },
             {
-                question: "What is the national dish of South Korea?",
-                options: ["Sushi", "Kimchi", "Bibimbap", "Ramen"],
-                correct: 2,
-                fact: "Bibimbap is a popular Korean rice dish with various vegetables and meat."
+                item: 'Hanbok',
+                description: 'Traditional Korean clothing often worn for festivals and ceremonies.'
             },
             {
-                question: "What does 'K-pop' stand for?",
-                options: ["Korean Pop", "Korean Popular", "Korean People", "Korean Music"],
-                correct: 0,
-                fact: "K-pop refers to popular music from South Korea, known worldwide."
+                item: 'Chuseok',
+                description: 'A major harvest holiday when families gather to give thanks and share food.'
             },
             {
-                question: "Which Korean holiday celebrates the harvest moon?",
-                options: ["Seollal", "Chuseok", "Dano", "Hansik"],
-                correct: 1,
-                fact: "Chuseok is the Korean harvest festival, similar to Thanksgiving."
-            },
-            {
-                question: "What is the Korean word for 'family'?",
-                options: ["Chingu", "Gajok", "Jip", "Eomma"],
-                correct: 1,
-                fact: "Gajok (가족) means family in Korean."
+                item: 'Hangul',
+                description: 'The Korean writing system created in the 15th century for easy reading and writing.'
             }
         ];
+        let cultureSelectedItem = null;
+        let cultureMatches = 0;
         
-        let currentQuestionIndex = 0;
-        let quizScore = 0;
+        function initCultureGame() {
+            resetCultureGame();
+        }
         
-        function initQuizGame() {
-            loadQuestion();
-            const options = document.querySelectorAll('.quiz-option');
-            options.forEach((option, index) => {
-                option.addEventListener('click', () => selectQuizAnswer(index));
+        function resetCultureGame() {
+            cultureSelectedItem = null;
+            cultureMatches = 0;
+            document.getElementById('cultureScore').textContent = cultureMatches;
+            document.getElementById('cultureRemaining').textContent = culturePairs.length;
+            document.getElementById('cultureFeedback').textContent = 'Select an item, then choose the matching description.';
+            renderCultureGame();
+        }
+        
+        function getShuffledIndexes(length) {
+            return Array.from({ length }, (_, i) => i).sort(() => Math.random() - 0.5);
+        }
+        
+        function renderCultureGame() {
+            const itemsContainer = document.getElementById('cultureItems');
+            const optionsContainer = document.getElementById('cultureOptions');
+            itemsContainer.innerHTML = '';
+            optionsContainer.innerHTML = '';
+
+            const itemOrder = getShuffledIndexes(culturePairs.length);
+            const optionOrder = getShuffledIndexes(culturePairs.length);
+
+            itemOrder.forEach(index => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'culture-item';
+                button.textContent = culturePairs[index].item;
+                button.dataset.index = index;
+                button.addEventListener('click', () => selectCultureItem(index));
+                itemsContainer.appendChild(button);
+            });
+
+            optionOrder.forEach(index => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'culture-option';
+                button.textContent = culturePairs[index].description;
+                button.dataset.index = index;
+                button.addEventListener('click', () => selectCultureOption(index));
+                optionsContainer.appendChild(button);
             });
         }
         
-        function loadQuestion() {
-            const question = quizQuestions[currentQuestionIndex];
-            document.getElementById('quizQuestion').textContent = question.question;
-            
-            const options = document.querySelectorAll('.quiz-option');
-            options.forEach((option, index) => {
-                option.textContent = question.options[index];
-                option.classList.remove('correct', 'incorrect');
-                option.style.pointerEvents = 'auto';
+        function selectCultureItem(index) {
+            if (cultureMatches === culturePairs.length) return;
+            cultureSelectedItem = index;
+            document.querySelectorAll('.culture-item').forEach(button => {
+                button.classList.toggle('selected', Number(button.dataset.index) === index);
             });
+            document.getElementById('cultureFeedback').textContent = 'Now choose the matching description.';
         }
         
-        function selectQuizAnswer(selectedIndex) {
-            const question = quizQuestions[currentQuestionIndex];
-            const options = document.querySelectorAll('.quiz-option');
-            
-            options.forEach(option => option.style.pointerEvents = 'none');
-            
-            if (selectedIndex === question.correct) {
-                options[selectedIndex].classList.add('correct');
-                quizScore++;
-                document.getElementById('quizScore').textContent = quizScore;
-            } else {
-                options[selectedIndex].classList.add('incorrect');
-                options[question.correct].classList.add('correct');
+        function selectCultureOption(index) {
+            if (cultureSelectedItem === null) {
+                document.getElementById('cultureFeedback').textContent = 'Please select an item first.';
+                return;
             }
             
-            setTimeout(() => {
-                currentQuestionIndex++;
-                if (currentQuestionIndex < quizQuestions.length) {
-                    loadQuestion();
-                } else {
-                    endQuiz();
+            const selectedOption = document.querySelector(`.culture-option[data-index="${index}"]`);
+            const selectedItem = document.querySelector(`.culture-item[data-index="${cultureSelectedItem}"]`);
+            if (!selectedOption || !selectedItem) return;
+
+            if (index === cultureSelectedItem) {
+                selectedOption.classList.add('matched');
+                selectedItem.classList.add('matched');
+                selectedOption.disabled = true;
+                selectedItem.disabled = true;
+                selectedOption.classList.remove('selected');
+                cultureMatches++;
+                document.getElementById('cultureScore').textContent = cultureMatches;
+                document.getElementById('cultureRemaining').textContent = culturePairs.length - cultureMatches;
+                document.getElementById('cultureFeedback').textContent = 'Correct match! Pick another item.';
+                cultureSelectedItem = null;
+                if (cultureMatches === culturePairs.length) {
+                    document.getElementById('cultureFeedback').textContent = 'Excellent! You matched all cultural items.';
                 }
-            }, 2000);
-        }
-        
-        function endQuiz() {
-            document.getElementById('quizQuestion').textContent = `Quiz Complete! You got ${quizScore} out of ${quizQuestions.length} correct.`;
-            const options = document.querySelectorAll('.quiz-option');
-            options.forEach(option => option.style.display = 'none');
-        }
-        
-        function resetQuizGame() {
-            currentQuestionIndex = 0;
-            quizScore = 0;
-            document.getElementById('quizScore').textContent = '0';
-            
-            const options = document.querySelectorAll('.quiz-option');
-            options.forEach(option => option.style.display = 'block');
-            
-            initQuizGame();
+            } else {
+                selectedOption.classList.add('incorrect');
+                document.getElementById('cultureFeedback').textContent = 'That description does not match the selected item. Try again.';
+                setTimeout(() => {
+                    selectedOption.classList.remove('incorrect');
+                }, 1200);
+            }
         }
         
         // Initialize all games on page load
@@ -1537,8 +1806,9 @@
             startVocabGame();
             initPronunciationGame();
             initSentenceGame();
+            initReadingGame();
             initMemoryGame();
-            initQuizGame();
+            initCultureGame();
         });
     </script>
 
@@ -1552,16 +1822,16 @@
                     Neuroscience-backed, culturally immersive, and genuinely accessible.
                 </p>
                 <div class="social-links">
-                    <a href="#" class="social-link">
+                    <a href="https://twitter.com/" class="social-link" target="_blank" rel="noopener">
                         <i class="fab fa-twitter"></i>
                     </a>
-                    <a href="#" class="social-link">
+                    <a href="https://instagram.com/" class="social-link" target="_blank" rel="noopener">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="#" class="social-link">
+                    <a href="https://youtube.com/" class="social-link" target="_blank" rel="noopener">
                         <i class="fab fa-youtube"></i>
                     </a>
-                    <a href="#" class="social-link">
+                    <a href="https://discord.com/" class="social-link" target="_blank" rel="noopener">
                         <i class="fab fa-discord"></i>
                     </a>
                 </div>
