@@ -1190,7 +1190,13 @@
                 draggedElement.classList.add('placed');
                 draggedElement.style.opacity = '0.5';
                 
+                const placeholder = e.target.querySelector('.sentence-placeholder');
+                if (placeholder) {
+                    placeholder.remove();
+                }
+                
                 const wordSpan = document.createElement('span');
+                wordSpan.classList.add('sentence-word-chip');
                 wordSpan.textContent = draggedWord;
                 wordSpan.style.margin = '0 4px';
                 wordSpan.style.padding = '4px 8px';
@@ -1209,20 +1215,18 @@
                 
                 e.target.appendChild(wordSpan);
                 
-                // Check if sentence is complete (when all 3 words are placed)
-                const sentenceWordsInZone = e.target.querySelectorAll('span');
+                // Check if sentence is complete (when all 3 target words are placed)
+                const sentenceWordsInZone = e.target.querySelectorAll('.sentence-word-chip');
                 if (sentenceWordsInZone.length === 3) {
                     const placedWords = Array.from(sentenceWordsInZone).map(span => span.textContent);
                     const sentence = placedWords.join(' ');
                     
-                    // Check against correct answer
                     if (sentence === '나는 밥을 먹어요') {
                         e.target.style.background = 'var(--success)';
                         setTimeout(() => {
                             e.target.innerHTML = '<span style="color: white; font-weight: 700;">✓ Correct! 나는 밥을 먹어요 (I eat rice)</span>';
                         }, 300);
                     } else {
-                        // Wrong order - show error and allow retry
                         e.target.style.background = 'var(--error)';
                         setTimeout(() => {
                             e.target.style.background = 'white';
@@ -1241,7 +1245,7 @@
                 word.style.opacity = '1';
             });
             
-            dropZone.innerHTML = '<span style="color: var(--gray-medium);">Drop words here...</span>';
+            dropZone.innerHTML = '<span class="sentence-placeholder" style="color: var(--gray-medium);">Drop words here...</span>';
             dropZone.style.background = 'white';
         }
         
