@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About K-Focus | Our Mission & Team</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Orange & White Color Palette */
+            --primary-orange: #FF6B35;
+            --orange-light: #FF9A3C;
+            --orange-dark: #E55A2B;
+            --orange-subtle: #FFF3E0;
+            --white: #FFFFFF;
+            --off-white: #F8F9FA;
+            --gray-light: #E9ECEF;
+            --gray-medium: #ADB5BD;
+            --gray-dark: #495057;
+            --gray-text: #343A40;
+            --success: #38B000;
+            --warning: #FF9E00;
+            --error: #D00000;
+            
+            /* Typography */
+            --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-body: 'Open Sans', system-ui, sans-serif;
+            --font-korean: 'Noto Sans KR', sans-serif;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-xxl: 3rem;
+            --space-xxxl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-round: 50%;
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(255, 107, 53, 0.1);
+            --shadow-md: 0 4px 16px rgba(255, 107, 53, 0.15);
+            --shadow-lg: 0 8px 32px rgba(255, 107, 53, 0.2);
+            --shadow-focus: 0 0 0 3px rgba(255, 107, 53, 0.3);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--white);
+            color: var(--gray-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header & Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--orange-subtle);
+            padding: var(--space-md) 0;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-orange);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.5rem;
+            font-family: var(--font-korean);
+        }
+        
+        .logo-text {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--primary-orange);
+        }
+        
+        .logo-text span {
+            color: var(--gray-text);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: var(--space-xl);
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            font-family: var(--font-heading);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            transition: var(--transition-normal);
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-orange);
+            background: var(--orange-subtle);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-orange);
+            font-weight: 600;
+        }
+        
+        .nav-links a.active:after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-orange);
+            border-radius: var(--radius-round);
+        }
+        
+        .cta-button {
+            background: var(--primary-orange);
+            color: white;
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            transition: var(--transition-normal);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+        
+        .cta-button:hover {
+            background: var(--orange-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-orange);
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 120px;
+            background: linear-gradient(135deg, var(--off-white) 0%, var(--white) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--orange-subtle) 0%, transparent 70%);
+            opacity: 0.5;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            text-align: center;
+        }
+        
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: var(--space-lg);
+            color: var(--gray-text);
+        }
+        
+        .hero-content h1 span {
+            color: var(--primary-orange);
+            position: relative;
+        }
+        
+        .hero-content h1 span:after {
+            content: "";
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--orange-subtle);
+            z-index: -1;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--gray-medium);
+            margin-bottom: var(--space-xl);
+            font-weight: 400;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Mission Section */
+        .mission {
+            padding: var(--space-xxxl) 0;
+            background: var(--white);
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto var(--space-xxxl);
+            padding: 0 var(--space-xl);
+        }
+        
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--space-lg);
+            color: var(--gray-text);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-orange);
+            border-radius: var(--radius-round);
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-medium);
+            line-height: 1.6;
+        }
+        
+        .mission-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            text-align: center;
+        }
+        
+        .mission-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--gray-text);
+            margin-bottom: var(--space-xl);
+            position: relative;
+        }
+        
+        .mission-quote:before,
+        .mission-quote:after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--primary-orange);
+            position: absolute;
+            top: -10px;
+        }
+        
+        .mission-quote:before {
+            left: -30px;
+        }
+        
+        .mission-quote:after {
+            right: -30px;
+        }
+        
+        .mission-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-xl);
+            margin: var(--space-xxxl) 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: var(--space-xl);
+            background: var(--off-white);
+            border-radius: var(--radius-xl);
+            border: 2px solid var(--orange-subtle);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-orange);
+            font-family: var(--font-heading);
+            line-height: 1;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: var(--gray-medium);
+            font-weight: 500;
+        }
+        
+        /* Team Section */
+        .team {
+            padding: var(--space-xxxl) 0;
+            background: var(--off-white);
+        }
+        
+        .team-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-xl);
+        }
+        
+        .team-member {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-normal);
+            text-align: center;
+            border: 2px solid transparent;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--orange-subtle);
+        }
+        
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--orange-light));
+            border-radius: var(--radius-round);
+            margin: 0 auto var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .member-name {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: var(--space-sm);
+            color: var(--gray-text);
+        }
+        
+        .member-role {
+            color: var(--primary-orange);
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .member-bio {
+            color: var(--gray-medium);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* Values Section */
+        .values {
+            padding: var(--space-xxxl) 0;
+            background: white;
+        }
+        
+        .values-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-xl);
+        }
+        
+        .value-item {
+            text-align: center;
+            padding: var(--space-xl);
+        }
+        
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--orange-subtle);
+            border-radius: var(--radius-round);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-lg);
+            color: var(--primary-orange);
+            font-size: 2rem;
+        }
+        
+        .value-title {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            margin-bottom: var(--space-md);
+            color: var(--gray-text);
+        }
+        
+        .value-desc {
+            color: var(--gray-medium);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--gray-text);
+            color: white;
+            padding: var(--space-xxxl) 0 var(--space-xl);
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-xxxl);
+            margin-bottom: var(--space-xxxl);
+        }
+        
+        .footer-column h3 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            margin-bottom: var(--space-lg);
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: var(--space-sm);
+        }
+        
+        .footer-links a {
+            color: var(--gray-light);
+            text-decoration: none;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(4px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: var(--space-xl);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray-light);
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+            justify-content: center;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-round);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition-normal);
+        }
+        
+        .social-link:hover {
+            background: var(--primary-orange);
+            transform: translateY(-2px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 var(--space-lg);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                padding: 140px 0 80px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .mission-quote:before,
+            .mission-quote:after {
+                display: none;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .delay-2 { animation-delay: 0.2s; opacity: 0; }
+        .delay-3 { animation-delay: 0.3s; opacity: 0; }
+        .delay-4 { animation-delay: 0.4s; opacity: 0; }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">ㄱ</div>
+                <div class="logo-text">K<span>-Focus</span></div>
+            </a>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="games.html">Games</a></li>
+                    <li><a href="progress.html">Progress</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                </ul>
+            </nav>
+            
+            <a href="#" class="cta-button">
+                <i class="fas fa-play"></i>
+                Start Learning
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content fade-in-up">
+                <h1>About <span>K-Focus</span></h1>
+                <p class="hero-subtitle">
+                    We're on a mission to make Korean learning accessible and enjoyable for ADHD brains everywhere.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission">
+        <div class="section-header fade-in-up">
+            <h2 class="section-title">Our Mission</h2>
+            <p class="section-subtitle">Revolutionizing language learning through neuroscience and empathy</p>
+        </div>
+        
+        <div class="mission-content fade-in-up delay-1">
+            <p class="mission-quote">
+                Every brain deserves the chance to learn Korean. We're building the bridge between ADHD learners and their language goals.
+            </p>
+            
+            <p style="font-size: 1.1rem; margin-bottom: var(--space-xl); color: var(--gray-medium);">
+                Founded by educators and neuroscientists, K-Focus was born from the frustration of watching talented ADHD individuals struggle with traditional language learning methods. We believe that ADHD is not a barrier to learning—it's a different way of processing information that, when properly supported, can lead to extraordinary achievements.
+            </p>
+            
+            <div class="mission-stats">
+                <div class="stat-item">
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">ADHD Learners Report Improved Focus</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2.4x</div>
+                    <div class="stat-label">Faster Vocabulary Acquisition</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">94%</div>
+                    <div class="stat-label">User Satisfaction Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50k+</div>
+                    <div class="stat-label">Active Learners Worldwide</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team">
+        <div class="section-header fade-in-up">
+            <h2 class="section-title">Meet Our Team</h2>
+            <p class="section-subtitle">Experts in neuroscience, education, and ADHD advocacy</p>
+        </div>
+        
+        <div class="team-grid">
+            <div class="team-member fade-in-up delay-1">
+                <div class="member-avatar">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="member-name">Boey Chan</h3>
+                <p class="member-role">Chief Neuroscience Officer</p>
+                <p class="member-bio">
+                    Former MIT researcher specializing in ADHD and executive function. Published 15+ papers on neurodiversity in education. Passionate about making learning accessible for all brain types.
+                </p>
+            </div>
+            
+            <div class="team-member fade-in-up delay-2">
+                <div class="member-avatar">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3 class="member-name">Lily Chan</h3>
+                <p class="member-role">Head of Education Design</p>
+                <p class="member-bio">
+                    10+ years teaching Korean to diverse learners. ADHD advocate and curriculum designer. Created the first ADHD-friendly language curriculum adopted by 200+ schools.
+                </p>
+            </div>
+            
+            <div class="team-member fade-in-up delay-3">
+                <div class="member-avatar">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 class="member-name">Kanok Chan</h3>
+                <p class="member-role">Lead Product Engineer</p>
+                <p class="member-bio">
+                    Full-stack developer with ADHD who built the platform he always wished existed. Expert in gamification and accessibility. Previously at Duolingo and Khan Academy.
+                </p>
+            </div>
+            
+            <div class="team-member fade-in-up delay-4">
+                <div class="member-avatar">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="member-name">Ji-yeon Park</h3>
+                <p class="member-role">Cultural Director</p>
+                <p class="member-bio">
+                    Native Korean speaker and cultural anthropologist. Ensures authentic cultural representation while making Korean culture accessible and engaging for global learners.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values">
+        <div class="section-header fade-in-up">
+            <h2 class="section-title">Our Core Values</h2>
+            <p class="section-subtitle">The principles that guide everything we do</p>
+        </div>
+        
+        <div class="values-grid">
+            <div class="value-item fade-in-up delay-1">
+                <div class="value-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 class="value-title">Empathy First</h3>
+                <p class="value-desc">
+                    We listen to our community and design with genuine understanding of ADHD experiences, not assumptions.
+                </p>
+            </div>
+            
+            <div class="value-item fade-in-up delay-2">
+                <div class="value-icon">
+                    <i class="fas fa-microscope"></i>
+                </div>
+                <h3 class="value-title">Science-Backed</h3>
+                <p class="value-desc">
+                    Every feature is grounded in peer-reviewed neuroscience research and validated through user testing.
+                </p>
+            </div>
+            
+            <div class="value-item fade-in-up delay-3">
+                <div class="value-icon">
+                    <i class="fas fa-infinity"></i>
+                </div>
+                <h3 class="value-title">Inclusive Design</h3>
+                <p class="value-desc">
+                    We build for neurodiversity, creating solutions that work for ADHD brains and enhance learning for everyone.
+                </p>
+            </div>
+            
+            <div class="value-item fade-in-up delay-4">
+                <div class="value-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h3 class="value-title">Growth Mindset</h3>
+                <p class="value-desc">
+                    We believe in the potential of every learner and create environments where growth and success are inevitable.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact" style="padding: var(--space-xxxl) 0; background: var(--off-white);">
+        <div class="section-header fade-in-up">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">We'd love to hear from you</p>
+        </div>
+
+        <div style="max-width: 800px; margin: 0 auto; padding: 0 var(--space-xl);">
+            <div style="background: white; border-radius: var(--radius-xl); padding: var(--space-xxxl); box-shadow: var(--shadow-md);">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-xl);">
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; background: var(--orange-subtle); border-radius: var(--radius-round); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-md);">
+                            <i class="fas fa-envelope" style="color: var(--primary-orange); font-size: 1.5rem;"></i>
+                        </div>
+                        <h3 style="font-family: var(--font-heading); margin-bottom: var(--space-sm);">Email Us</h3>
+                        <p style="color: var(--gray-medium);">hello@k-focus.com</p>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; background: var(--orange-subtle); border-radius: var(--radius-round); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-md);">
+                            <i class="fas fa-users" style="color: var(--primary-orange); font-size: 1.5rem;"></i>
+                        </div>
+                        <h3 style="font-family: var(--font-heading); margin-bottom: var(--space-sm);">Community</h3>
+                        <p style="color: var(--gray-medium);">Join our Discord server</p>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; background: var(--orange-subtle); border-radius: var(--radius-round); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-md);">
+                            <i class="fas fa-newspaper" style="color: var(--primary-orange); font-size: 1.5rem;"></i>
+                        </div>
+                        <h3 style="font-family: var(--font-heading); margin-bottom: var(--space-sm);">Newsletter</h3>
+                        <p style="color: var(--gray-medium);">Stay updated with our latest</p>
+                    </div>
+                </div>
+
+                <form style="display: grid; gap: var(--space-lg);">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
+                        <input type="text" placeholder="Your Name" style="padding: var(--space-md); border: 2px solid var(--gray-light); border-radius: var(--radius-md); font-family: var(--font-body);">
+                        <input type="email" placeholder="Your Email" style="padding: var(--space-md); border: 2px solid var(--gray-light); border-radius: var(--radius-md); font-family: var(--font-body);">
+                    </div>
+                    <select style="padding: var(--space-md); border: 2px solid var(--gray-light); border-radius: var(--radius-md); font-family: var(--font-body);">
+                        <option>What can we help you with?</option>
+                        <option>General Inquiry</option>
+                        <option>Technical Support</option>
+                        <option>Partnership Opportunities</option>
+                        <option>Press & Media</option>
+                        <option>Other</option>
+                    </select>
+                    <textarea placeholder="Your message..." rows="5" style="padding: var(--space-md); border: 2px solid var(--gray-light); border-radius: var(--radius-md); font-family: var(--font-body); resize: vertical;"></textarea>
+                    <button type="submit" class="cta-button" style="width: fit-content; margin: 0 auto;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>K-Focus</h3>
+                <p style="color: var(--gray-light); margin-bottom: var(--space-lg);">
+                    The first Korean learning platform designed specifically for ADHD brains. 
+                    Neuroscience-backed, culturally immersive, and genuinely accessible.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Learning Features</h3>
+                <ul class="footer-links">
+                    <li><a href="games.html"><i class="fas fa-chevron-right"></i> Vocabulary Builder</a></li>
+                    <li><a href="games.html"><i class="fas fa-chevron-right"></i> Interactive Games</a></li>
+                    <li><a href="progress.html"><i class="fas fa-chevron-right"></i> Progress Tracking</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> ADHD Settings</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Cultural Immersion</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="resources.html"><i class="fas fa-chevron-right"></i> ADHD Learning Guide</a></li>
+                    <li><a href="resources.html"><i class="fas fa-chevron-right"></i> Korean Culture Hub</a></li>
+                    <li><a href="resources.html"><i class="fas fa-chevron-right"></i> Research & Science</a></li>
+                    <li><a href="resources.html"><i class="fas fa-chevron-right"></i> Community Forum</a></li>
+                    <li><a href="resources.html"><i class="fas fa-chevron-right"></i> Teacher Resources</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Get Started</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Free Trial</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Pricing</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> For Schools</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Beta Testing</a></li>
+                    <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2024 K-Focus. All rights reserved. Designed for ADHD brains, enjoyed by all learners.</p>
+            <p style="margin-top: var(--space-sm); font-size: 0.8rem;">
+                <a href="#" style="color: var(--gray-light); text-decoration: none;">Privacy Policy</a> • 
+                <a href="#" style="color: var(--gray-light); text-decoration: none;">Terms of Service</a> • 
+                <a href="#" style="color: var(--gray-light); text-decoration: none;">Accessibility Statement</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.background = 'white';
+                navLinks.style.padding = 'var(--space-lg)';
+                navLinks.style.boxShadow = 'var(--shadow-lg)';
+                navLinks.style.borderRadius = 'var(--radius-lg)';
+                navLinks.style.zIndex = '1000';
+            }
+        });
+        
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections for animation
+        document.querySelectorAll('.section-header, .team-member, .value-item').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (window.innerWidth <= 768) {
+                        navLinks.style.display = 'none';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

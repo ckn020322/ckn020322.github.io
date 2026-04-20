@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Focus Resources | Learning Materials & Guides</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Orange & White Color Palette */
+            --primary-orange: #FF6B35;
+            --orange-light: #FF9A3C;
+            --orange-dark: #E55A2B;
+            --orange-subtle: #FFF3E0;
+            --white: #FFFFFF;
+            --off-white: #F8F9FA;
+            --gray-light: #E9ECEF;
+            --gray-medium: #ADB5BD;
+            --gray-dark: #495057;
+            --gray-text: #343A40;
+            --success: #38B000;
+            --warning: #FF9E00;
+            --error: #D00000;
+            
+            /* Typography */
+            --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-body: 'Open Sans', system-ui, sans-serif;
+            --font-korean: 'Noto Sans KR', sans-serif;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-xxl: 3rem;
+            --space-xxxl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-round: 50%;
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(255, 107, 53, 0.1);
+            --shadow-md: 0 4px 16px rgba(255, 107, 53, 0.15);
+            --shadow-lg: 0 8px 32px rgba(255, 107, 53, 0.2);
+            --shadow-focus: 0 0 0 3px rgba(255, 107, 53, 0.3);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--white);
+            color: var(--gray-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header & Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--orange-subtle);
+            padding: var(--space-md) 0;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-orange);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.5rem;
+            font-family: var(--font-korean);
+        }
+        
+        .logo-text {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--primary-orange);
+        }
+        
+        .logo-text span {
+            color: var(--gray-text);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: var(--space-xl);
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            font-family: var(--font-heading);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            transition: var(--transition-normal);
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-orange);
+            background: var(--orange-subtle);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-orange);
+            font-weight: 600;
+        }
+        
+        .nav-links a.active:after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-orange);
+            border-radius: var(--radius-round);
+        }
+        
+        .cta-button {
+            background: var(--primary-orange);
+            color: white;
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            transition: var(--transition-normal);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+        
+        .cta-button:hover {
+            background: var(--orange-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-orange);
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 120px;
+            background: linear-gradient(135deg, var(--off-white) 0%, var(--white) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--orange-subtle) 0%, transparent 70%);
+            opacity: 0.5;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            text-align: center;
+        }
+        
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: var(--space-lg);
+            color: var(--gray-text);
+        }
+        
+        .hero-content h1 span {
+            color: var(--primary-orange);
+            position: relative;
+        }
+        
+        .hero-content h1 span:after {
+            content: "";
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--orange-subtle);
+            z-index: -1;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--gray-medium);
+            margin-bottom: var(--space-xl);
+            font-weight: 400;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Resources Section */
+        .resources {
+            padding: var(--space-xxxl) 0;
+            background: var(--white);
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto var(--space-xxxl);
+            padding: 0 var(--space-xl);
+        }
+        
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--space-lg);
+            color: var(--gray-text);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-orange);
+            border-radius: var(--radius-round);
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-medium);
+            line-height: 1.6;
+        }
+        
+        .resources-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+        }
+        
+        .resource-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-normal);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--orange-subtle);
+        }
+        
+        .resource-card:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-orange), var(--orange-light));
+        }
+        
+        .resource-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--orange-subtle);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-lg);
+            color: var(--primary-orange);
+            font-size: 1.8rem;
+        }
+        
+        .resource-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: var(--space-md);
+            color: var(--gray-text);
+        }
+        
+        .resource-desc {
+            color: var(--gray-medium);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .resource-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            font-size: 0.9rem;
+            color: var(--gray-medium);
+        }
+        
+        .resource-tags {
+            display: flex;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+        
+        .resource-tag {
+            background: var(--off-white);
+            color: var(--primary-orange);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-round);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .resource-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            color: var(--primary-orange);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition-normal);
+        }
+        
+        .resource-cta:hover {
+            color: var(--orange-dark);
+            transform: translateX(4px);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--gray-text);
+            color: white;
+            padding: var(--space-xxxl) 0 var(--space-xl);
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-xxxl);
+            margin-bottom: var(--space-xxxl);
+        }
+        
+        .footer-column h3 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            margin-bottom: var(--space-lg);
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: var(--space-sm);
+        }
+        
+        .footer-links a {
+            color: var(--gray-light);
+            text-decoration: none;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(4px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: var(--space-xl);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray-light);
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+            justify-content: center;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-round);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition-normal);
+        }
+        
+        .social-link:hover {
+            background: var(--primary-orange);
+            transform: translateY(-2px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 var(--space-lg);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                padding: 140px 0 80px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .delay-2 { animation-delay: 0.2s; opacity: 0; }
+        .delay-3 { animation-delay: 0.3s; opacity: 0; }
+        .delay-4 { animation-delay: 0.4s; opacity: 0; }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">ㄱ</div>
+                <div class="logo-text">K<span>-Focus</span></div>
+            </a>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="games.html">Games</a></li>
+                    <li><a href="progress.html">Progress</a></li>
+                    <li><a href="resources.html" class="active">Resources</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
+            
+            <a href="#" class="cta-button">
+                <i class="fas fa-play"></i>
+                Start Learning
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content fade-in-up">
+                <h1>Learning <span>Resources</span></h1>
+                <p class="hero-subtitle">
+                    Comprehensive guides, cultural insights, and neuroscience-backed learning materials designed for ADHD brains.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="resources">
+        <div class="section-header fade-in-up">
+            <h2 class="section-title">ADHD-Optimized Learning Resources</h2>
+            <p class="section-subtitle">Everything you need to accelerate your Korean learning journey</p>
+        </div>
+        
+        <div class="resources-grid">
+            <div id="guide" class="resource-card fade-in-up delay-1">
+                <div class="resource-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="resource-title">ADHD Learning Guide</h3>
+                <p class="resource-desc">Comprehensive guide to understanding how ADHD affects language learning and proven strategies for success.</p>
+                <div class="resource-meta">
+                    <span><i class="fas fa-clock"></i> 15 min read</span>
+                    <div class="resource-tags">
+                        <span class="resource-tag">Guide</span>
+                        <span class="resource-tag">ADHD</span>
+                    </div>
+                </div>
+                <a href="#" class="resource-cta">
+                    Read Guide <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div id="culture" class="resource-card fade-in-up delay-2">
+                <div class="resource-icon">
+                    <i class="fas fa-globe-asia"></i>
+                </div>
+                <h3 class="resource-title">Korean Culture Hub</h3>
+                <p class="resource-desc">Immerse yourself in Korean culture with interactive stories, traditions, and cultural contexts that make learning meaningful.</p>
+                <div class="resource-meta">
+                    <span><i class="fas fa-clock"></i> Interactive</span>
+                    <div class="resource-tags">
+                        <span class="resource-tag">Culture</span>
+                        <span class="resource-tag">Stories</span>
+                    </div>
+                </div>
+                <a href="#" class="resource-cta">
+                    Explore Culture <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div id="research" class="resource-card fade-in-up delay-3">
+                <div class="resource-icon">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <h3 class="resource-title">Research & Science</h3>
+                <p class="resource-desc">Latest neuroscience research on ADHD and language learning, with practical applications for your studies.</p>
+                <div class="resource-meta">
+                    <span><i class="fas fa-clock"></i> 20 min read</span>
+                    <div class="resource-tags">
+                        <span class="resource-tag">Research</span>
+                        <span class="resource-tag">Science</span>
+                    </div>
+                </div>
+                <a href="#" class="resource-cta">
+                    View Research <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div id="community" class="resource-card fade-in-up delay-4">
+                <div class="resource-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="resource-title">Community Forum</h3>
+                <p class="resource-desc">Connect with fellow ADHD Korean learners, share experiences, and get support from our vibrant community.</p>
+                <div class="resource-meta">
+                    <span><i class="fas fa-users"></i> 2.3k members</span>
+                    <div class="resource-tags">
+                        <span class="resource-tag">Community</span>
+                        <span class="resource-tag">Support</span>
+                    </div>
+                </div>
+                <a href="#" class="resource-cta">
+                    Join Community <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div id="teachers" class="resource-card fade-in-up delay-1">
+                <div class="resource-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3 class="resource-title">Teacher Resources</h3>
+                <p class="resource-desc">Professional resources for educators teaching Korean to ADHD students, including classroom strategies and accommodations.</p>
+                <div class="resource-meta">
+                    <span><i class="fas fa-clock"></i> 25 min read</span>
+                    <div class="resource-tags">
+                        <span class="resource-tag">Teaching</span>
+                        <span class="resource-tag">Education</span>
+                    </div>
+                </div>
+                <a href="#" class="resource-cta">
+                    Teacher Guide <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="resource-card fade-in-up delay-2">
+                <div class="resource-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+                <h3 class="resource-title">Downloadable Materials</h3>
+                <p class="resource-desc">Free printable worksheets, vocabulary cards, and study aids designed specifically for ADHD-friendly learning.</p>
+                <div class="resource-meta">
+                    <span><i class="fas fa-download"></i> Free downloads</span>
+                    <div class="resource-tags">
+                        <span class="resource-tag">Free</span>
+                        <span class="resource-tag">Printables</span>
+                    </div>
+                </div>
+                <a href="#" class="resource-cta">
+                    Download Now <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>K-Focus</h3>
+                <p style="color: var(--gray-light); margin-bottom: var(--space-lg);">
+                    The first Korean learning platform designed specifically for ADHD brains. 
+                    Neuroscience-backed, culturally immersive, and genuinely accessible.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Learning Features</h3>
+                <ul class="footer-links">
+                    <li><a href="games.html#vocab-demo"><i class="fas fa-chevron-right"></i> Vocabulary Builder</a></li>
+                    <li><a href="games.html"><i class="fas fa-chevron-right"></i> Interactive Games</a></li>
+                    <li><a href="progress.html"><i class="fas fa-chevron-right"></i> Progress Tracking</a></li>
+                    <li><a href="#features"><i class="fas fa-chevron-right"></i> ADHD Settings</a></li>
+                    <li><a href="#culture"><i class="fas fa-chevron-right"></i> Cultural Immersion</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#guide"><i class="fas fa-chevron-right"></i> ADHD Learning Guide</a></li>
+                    <li><a href="#culture"><i class="fas fa-chevron-right"></i> Korean Culture Hub</a></li>
+                    <li><a href="#research"><i class="fas fa-chevron-right"></i> Research & Science</a></li>
+                    <li><a href="#community"><i class="fas fa-chevron-right"></i> Community Forum</a></li>
+                    <li><a href="#teachers"><i class="fas fa-chevron-right"></i> Teacher Resources</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Get Started</h3>
+                <ul class="footer-links">
+                    <li><a href="#demo"><i class="fas fa-chevron-right"></i> Free Trial</a></li>
+                    <li><a href="#pricing"><i class="fas fa-chevron-right"></i> Pricing</a></li>
+                    <li><a href="about.html#team"><i class="fas fa-chevron-right"></i> For Schools</a></li>
+                    <li><a href="#beta"><i class="fas fa-chevron-right"></i> Beta Testing</a></li>
+                    <li><a href="about.html#contact"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2024 K-Focus. All rights reserved. Designed for ADHD brains, enjoyed by all learners.</p>
+            <p style="margin-top: var(--space-sm); font-size: 0.8rem;">
+                <a href="#" style="color: var(--gray-light); text-decoration: none;">Privacy Policy</a> • 
+                <a href="#" style="color: var(--gray-light); text-decoration: none;">Terms of Service</a> • 
+                <a href="#" style="color: var(--gray-light); text-decoration: none;">Accessibility Statement</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.background = 'white';
+                navLinks.style.padding = 'var(--space-lg)';
+                navLinks.style.boxShadow = 'var(--shadow-lg)';
+                navLinks.style.borderRadius = 'var(--radius-lg)';
+                navLinks.style.zIndex = '1000';
+            }
+        });
+        
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections for animation
+        document.querySelectorAll('.section-header, .resource-card').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (window.innerWidth <= 768) {
+                        navLinks.style.display = 'none';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

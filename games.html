@@ -201,10 +201,23 @@
         
         /* Game-specific styles */
         .vocab-game {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--space-md);
+            display: flex;
+            justify-content: center;
+            gap: var(--space-xl);
             margin: var(--space-lg) 0;
+        }
+        
+        .vocab-column {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            min-width: 200px;
+        }
+        
+        .vocab-column h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
         }
         
         .korean-word, .english-word {
@@ -226,10 +239,24 @@
             font-family: var(--font-korean);
             font-size: 1.2rem;
             color: var(--primary-orange);
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .korean-word:hover {
+            background: var(--orange-subtle);
+            transform: scale(1.05);
+        }
+        
+        .english-word:hover {
+            background: var(--orange-subtle);
+            transform: scale(1.05);
         }
         
         .english-word {
             color: var(--gray-text);
+            cursor: pointer;
+            user-select: none;
         }
         
         .korean-word:hover, .english-word:hover {
@@ -304,6 +331,143 @@
             transform: translateY(-2px);
         }
         
+        /* New game styles */
+        .pronunciation-option {
+            background: var(--white);
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            font-size: 1.1rem;
+            font-family: var(--font-korean);
+            cursor: pointer;
+            transition: var(--transition-normal);
+            user-select: none;
+        }
+        
+        .pronunciation-option:hover {
+            border-color: var(--primary-orange);
+            background: var(--orange-subtle);
+        }
+        
+        .pronunciation-option.correct {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+        
+        .pronunciation-option.incorrect {
+            background: var(--error);
+            color: white;
+            border-color: var(--error);
+        }
+        
+        .sentence-word {
+            background: var(--white);
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm) var(--space-md);
+            font-family: var(--font-korean);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            display: inline-block;
+            user-select: none;
+        }
+        
+        .sentence-word:hover {
+            border-color: var(--primary-orange);
+            background: var(--orange-subtle);
+            transform: scale(1.05);
+        }
+        
+        .sentence-word.placed {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        
+        .memory-card {
+            aspect-ratio: 1;
+            background: var(--primary-orange);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            user-select: none;
+        }
+        
+        .memory-card.flipped {
+            background: var(--white);
+            color: var(--gray-text);
+            border: 2px solid var(--primary-orange);
+        }
+        
+        .memory-card.matched {
+            background: var(--success);
+            cursor: default;
+        }
+        
+        .quiz-option {
+            background: var(--white);
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-normal);
+        }
+        
+        .quiz-option:hover {
+            border-color: var(--primary-orange);
+            background: var(--orange-subtle);
+        }
+        
+        .quiz-option.correct {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+        
+        .korean-word, .sentence-word, .memory-card, .pronunciation-option, .english-word {
+            position: relative;
+        }
+        
+        .korean-word:hover::after, .sentence-word:hover::after, .memory-card:hover::after, .pronunciation-option:hover::after, .english-word:hover::after {
+            content: "🔊";
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary-orange);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            pointer-events: none;
+        }
+        
+        #typingWord:hover::after {
+            content: "🔊 Click to hear";
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-orange);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+        
         /* Layout */
         .games-hero {
             padding: var(--space-xxxl) var(--space-xl) var(--space-xxl);
@@ -374,6 +538,104 @@
                 padding: var(--space-xl) var(--space-lg);
             }
         }
+        
+        /* Footer Styles */
+        .footer {
+            background: var(--gray-text);
+            color: white;
+            padding: var(--space-xxxl) var(--space-xl) var(--space-xl);
+            margin-top: var(--space-xxxl);
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: var(--space-xxl);
+        }
+        
+        .footer-column h3 {
+            color: white;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: var(--space-lg);
+            font-weight: 600;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: var(--space-md);
+        }
+        
+        .footer-links a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-orange);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-round);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition-normal);
+        }
+        
+        .social-link:hover {
+            background: var(--primary-orange);
+            transform: translateY(-2px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: var(--space-xl);
+            margin-top: var(--space-xl);
+            text-align: center;
+        }
+        
+        .footer-bottom p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--gray-light);
+        }
+        
+        /* Mobile Footer */
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: var(--space-xl);
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -394,8 +656,8 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="games.html" class="active">Games</a></li>
                     <li><a href="progress.html">Progress</a></li>
-                    <li><a href="#">Resources</a></li>
-                    <li><a href="#">About</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="about.html">About</a></li>
                 </ul>
             </nav>
             
@@ -430,7 +692,7 @@
                     Match Korean words with their English meanings. Perfect for building vocabulary recognition.
                 </p>
                 <span class="game-difficulty">Beginner</span>
-                <button class="play-button" onclick="startVocabGame()">
+                <button class="play-button" onclick="scrollToGame(); startVocabGame();">
                     <i class="fas fa-play"></i>
                     Play Now
                 </button>
@@ -446,7 +708,7 @@
                     Listen to Korean words and select the correct spelling. Improve your listening skills.
                 </p>
                 <span class="game-difficulty">Intermediate</span>
-                <button class="play-button">
+                <button class="play-button" onclick="scrollToSection('pronunciation-demo')">
                     <i class="fas fa-play"></i>
                     Play Now
                 </button>
@@ -462,7 +724,7 @@
                     Arrange Korean words to form correct sentences. Master grammar through play.
                 </p>
                 <span class="game-difficulty">Advanced</span>
-                <button class="play-button">
+                <button class="play-button" onclick="scrollToSection('sentence-demo')">
                     <i class="fas fa-play"></i>
                     Play Now
                 </button>
@@ -478,7 +740,7 @@
                     Flip cards to match Korean characters with their romanization. Boost memory retention.
                 </p>
                 <span class="game-difficulty">Beginner</span>
-                <button class="play-button">
+                <button class="play-button" onclick="scrollToSection('memory-demo')">
                     <i class="fas fa-play"></i>
                     Play Now
                 </button>
@@ -494,7 +756,7 @@
                     Type Korean words as fast as you can. Improve your typing speed and accuracy.
                 </p>
                 <span class="game-difficulty">Intermediate</span>
-                <button class="play-button">
+                <button class="play-button" onclick="scrollToSection('typing-demo')">
                     <i class="fas fa-play"></i>
                     Play Now
                 </button>
@@ -510,7 +772,7 @@
                     Test your knowledge of Korean culture while learning language. Fun facts included!
                 </p>
                 <span class="game-difficulty">All Levels</span>
-                <button class="play-button">
+                <button class="play-button" onclick="scrollToSection('quiz-demo')">
                     <i class="fas fa-play"></i>
                     Play Now
                 </button>
@@ -519,22 +781,31 @@
     </section>
 
     <!-- Vocabulary Game Demo -->
-    <section style="padding: var(--space-xxl) var(--space-xl); background: var(--off-white);">
+    <section id="vocab-demo" style="padding: var(--space-xxl) var(--space-xl); background: var(--off-white);">
         <div style="max-width: 800px; margin: 0 auto; text-align: center;">
             <h2 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: var(--space-lg); color: var(--gray-text);">
-                Try Our Vocabulary Matching Game
+                Vocabulary Matching Game
             </h2>
             <p style="color: var(--gray-medium); margin-bottom: var(--space-xl);">
-                Drag Korean words to match their English meanings. Get instant feedback!
+                Drag words from both sides to match them. Korean words go with their English meanings!
             </p>
             
             <div class="vocab-game" id="vocabGame">
-                <div class="korean-word" draggable="true" data-word="apple">사과</div>
-                <div class="english-word" data-target="apple">Drag here</div>
-                <div class="korean-word" draggable="true" data-word="school">학교</div>
-                <div class="english-word" data-target="school">Drag here</div>
-                <div class="korean-word" draggable="true" data-word="friend">친구</div>
-                <div class="english-word" data-target="friend">Drag here</div>
+                <!-- Left side - Korean words -->
+                <div class="vocab-column">
+                    <h4 style="color: var(--primary-orange); margin-bottom: var(--space-md); font-family: var(--font-heading);">Korean</h4>
+                    <div class="korean-word" draggable="true" data-word="apple">사과</div>
+                    <div class="korean-word" draggable="true" data-word="school">학교</div>
+                    <div class="korean-word" draggable="true" data-word="friend">친구</div>
+                </div>
+                
+                <!-- Right side - English words -->
+                <div class="vocab-column">
+                    <h4 style="color: var(--gray-text); margin-bottom: var(--space-md); font-family: var(--font-heading);">English</h4>
+                    <div class="english-word" draggable="true" data-target="apple">apple</div>
+                    <div class="english-word" draggable="true" data-target="school">school</div>
+                    <div class="english-word" draggable="true" data-target="friend">friend</div>
+                </div>
             </div>
             
             <button class="cta-button" style="margin-top: var(--space-lg);" onclick="resetVocabGame()">
@@ -544,19 +815,232 @@
         </div>
     </section>
 
+    <!-- Pronunciation Challenge Demo -->
+    <section id="pronunciation-demo" style="padding: var(--space-xxl) var(--space-xl); background: var(--white);">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h2 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: var(--space-lg); color: var(--gray-text);">
+                Pronunciation Challenge
+            </h2>
+            <p style="color: var(--gray-medium); margin-bottom: var(--space-xl);">
+                Listen to the pronunciation and select the correct Korean word. (Audio simulation)
+            </p>
+            
+            <div id="pronunciationGame" style="margin-bottom: var(--space-xl);">
+                <div style="background: var(--orange-subtle); padding: var(--space-xl); border-radius: var(--radius-lg); margin-bottom: var(--space-lg);">
+                    <button id="playSoundBtn" class="cta-button" style="margin-bottom: var(--space-lg);">
+                        <i class="fas fa-volume-up"></i>
+                        Play Pronunciation
+                    </button>
+                    <p id="soundHint" style="color: var(--primary-orange); font-weight: 600;">Click to hear "annyeonghaseyo" (hello)</p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-md); max-width: 600px; margin: 0 auto;">
+                    <button class="pronunciation-option" data-correct="false">안녕하세요</button>
+                    <button class="pronunciation-option" data-correct="true">안녕하세요</button>
+                    <button class="pronunciation-option" data-correct="false">안녕하십니까</button>
+                    <button class="pronunciation-option" data-correct="false">안녕</button>
+                </div>
+            </div>
+            
+            <button class="cta-button" onclick="resetPronunciationGame()">
+                <i class="fas fa-refresh"></i>
+                Try Again
+            </button>
+        </div>
+    </section>
+
+    <!-- Sentence Builder Demo -->
+    <section id="sentence-demo" style="padding: var(--space-xxl) var(--space-xl); background: var(--off-white);">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h2 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: var(--space-lg); color: var(--gray-text);">
+                Sentence Builder
+            </h2>
+            <p style="color: var(--gray-medium); margin-bottom: var(--space-xl);">
+                Arrange the words to form a correct Korean sentence.
+            </p>
+            
+            <div id="sentenceGame">
+                <div style="background: var(--orange-subtle); padding: var(--space-lg); border-radius: var(--radius-lg); margin-bottom: var(--space-lg);">
+                    <p style="color: var(--gray-text); margin-bottom: var(--space-md);">Target: "I eat rice" (나는 밥을 먹어요)</p>
+                    <div id="sentenceDropZone" style="min-height: 60px; border: 2px dashed var(--primary-orange); border-radius: var(--radius-md); padding: var(--space-md); background: white; display: flex; flex-wrap: wrap; gap: var(--space-sm); align-items: center;">
+                        <span style="color: var(--gray-medium);">Drop words here...</span>
+                    </div>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: var(--space-md); justify-content: center;">
+                    <div class="sentence-word" draggable="true" data-word="나는">나는</div>
+                    <div class="sentence-word" draggable="true" data-word="밥을">밥을</div>
+                    <div class="sentence-word" draggable="true" data-word="먹어요">먹어요</div>
+                    <div class="sentence-word" draggable="true" data-word="학교에">학교에</div>
+                    <div class="sentence-word" draggable="true" data-word="갑니다">갑니다</div>
+                </div>
+            </div>
+            
+            <button class="cta-button" style="margin-top: var(--space-lg);" onclick="resetSentenceGame()">
+                <i class="fas fa-refresh"></i>
+                Reset Sentence
+            </button>
+        </div>
+    </section>
+
+    <!-- Memory Cards Demo -->
+    <section id="memory-demo" style="padding: var(--space-xxl) var(--space-xl); background: var(--white);">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h2 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: var(--space-lg); color: var(--gray-text);">
+                Memory Cards
+            </h2>
+            <p style="color: var(--gray-medium); margin-bottom: var(--space-xl);">
+                Match Korean characters with their romanization. Test your memory!
+            </p>
+            
+            <div id="memoryGame">
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); max-width: 400px; margin: 0 auto;">
+                    <div class="memory-card" data-pair="1">ㄱ</div>
+                    <div class="memory-card" data-pair="2">ㄴ</div>
+                    <div class="memory-card" data-pair="3">ㄷ</div>
+                    <div class="memory-card" data-pair="1">g</div>
+                    <div class="memory-card" data-pair="2">n</div>
+                    <div class="memory-card" data-pair="3">d</div>
+                    <div class="memory-card" data-pair="4">ㅏ</div>
+                    <div class="memory-card" data-pair="4">a</div>
+                </div>
+                <p id="memoryStatus" style="margin-top: var(--space-lg); color: var(--gray-medium);">Click cards to flip them and find matches!</p>
+            </div>
+            
+            <button class="cta-button" style="margin-top: var(--space-lg);" onclick="resetMemoryGame()">
+                <i class="fas fa-refresh"></i>
+                New Game
+            </button>
+        </div>
+    </section>
+
+    <!-- Speed Typing Demo -->
+    <section id="typing-demo" style="padding: var(--space-xxl) var(--space-xl); background: var(--off-white);">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h2 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: var(--space-lg); color: var(--gray-text);">
+                Speed Typing Challenge
+            </h2>
+            <p style="color: var(--gray-medium); margin-bottom: var(--space-xl);">
+                Type the Korean words as fast as you can!
+            </p>
+            
+            <div id="typingGame">
+                <div style="background: var(--orange-subtle); padding: var(--space-xl); border-radius: var(--radius-lg); margin-bottom: var(--space-lg);">
+                    <div id="typingWord" style="font-size: 2rem; font-family: var(--font-korean); color: var(--primary-orange); margin-bottom: var(--space-md); font-weight: 700; cursor: pointer; user-select: none;">사과</div>
+                    <input type="text" id="typingInput" placeholder="Type here..." style="width: 100%; padding: var(--space-md); border: 2px solid var(--gray-light); border-radius: var(--radius-md); font-size: 1.2rem; text-align: center;">
+                </div>
+                
+                <div style="display: flex; justify-content: space-around; max-width: 400px; margin: 0 auto;">
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-orange);" id="typingScore">0</div>
+                        <div style="color: var(--gray-medium);">Words</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-orange);" id="typingTime">30</div>
+                        <div style="color: var(--gray-medium);">Seconds</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-orange);" id="typingWPM">0</div>
+                        <div style="color: var(--gray-medium);">WPM</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="cta-button" style="margin-top: var(--space-lg);" onclick="startTypingGame()">
+                <i class="fas fa-play"></i>
+                Start Typing
+            </button>
+        </div>
+    </section>
+
+    <!-- Cultural Quiz Demo -->
+    <section id="quiz-demo" style="padding: var(--space-xxl) var(--space-xl); background: var(--white);">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h2 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: var(--space-lg); color: var(--gray-text);">
+                Cultural Quiz
+            </h2>
+            <p style="color: var(--gray-medium); margin-bottom: var(--space-xl);">
+                Test your knowledge of Korean culture!
+            </p>
+            
+            <div id="quizGame">
+                <div style="background: var(--orange-subtle); padding: var(--space-xl); border-radius: var(--radius-lg); margin-bottom: var(--space-lg);">
+                    <h3 id="quizQuestion" style="color: var(--gray-text); margin-bottom: var(--space-lg);">What is the traditional Korean greeting bow called?</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
+                        <button class="quiz-option" data-correct="false">Jol</button>
+                        <button class="quiz-option" data-correct="true">Jol</button>
+                        <button class="quiz-option" data-correct="false">Kowtow</button>
+                        <button class="quiz-option" data-correct="false">Namaste</button>
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: center; gap: var(--space-xl);">
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-orange);" id="quizScore">0</div>
+                        <div style="color: var(--gray-medium);">Correct</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-orange);" id="quizTotal">5</div>
+                        <div style="color: var(--gray-medium);">Questions</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="cta-button" style="margin-top: var(--space-lg);" onclick="resetQuizGame()">
+                <i class="fas fa-refresh"></i>
+                Restart Quiz
+            </button>
+        </div>
+    </section>
+
     <script>
-        // Simple vocabulary matching game
+        // Text-to-speech function for Korean
+        function speakText(text, lang = 'ko-KR') {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = lang;
+                utterance.rate = 0.8; // Slightly slower for clarity
+                utterance.pitch = 1;
+                
+                // Cancel any ongoing speech
+                speechSynthesis.cancel();
+                
+                speechSynthesis.speak(utterance);
+            } else {
+                console.log('Speech synthesis not supported');
+            }
+        }
+        
+        // Scroll to specific game section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Vocabulary Matching Game
         function startVocabGame() {
             const koreanWords = document.querySelectorAll('.korean-word');
             const englishWords = document.querySelectorAll('.english-word');
             
+            // Make both Korean and English words draggable
             koreanWords.forEach(word => {
                 word.addEventListener('dragstart', dragStart);
+                word.addEventListener('click', () => speakText(word.textContent));
             });
             
             englishWords.forEach(word => {
+                word.addEventListener('dragstart', dragStart);
                 word.addEventListener('dragover', dragOver);
-                word.addEventListener('drop', drop);
+                word.addEventListener('drop', vocabDrop);
+                word.addEventListener('click', () => speakText(word.textContent, 'en-US'));
+            });
+            
+            // Also allow dropping on Korean words
+            koreanWords.forEach(word => {
+                word.addEventListener('dragover', dragOver);
+                word.addEventListener('drop', vocabDrop);
             });
         }
         
@@ -568,20 +1052,47 @@
             e.preventDefault();
         }
         
-        function drop(e) {
+        function vocabDrop(e) {
             e.preventDefault();
             const draggedWord = e.dataTransfer.getData('text/plain');
             const targetWord = e.target.dataset.target;
             
+            // Check if this is a valid match (either direction)
+            let isMatch = false;
+            let matchedElement = null;
+            
             if (draggedWord === targetWord) {
-                e.target.textContent = e.target.textContent.replace('Drag here', draggedWord.toUpperCase());
-                e.target.style.background = 'var(--success)';
-                e.target.style.color = 'white';
+                isMatch = true;
+                matchedElement = e.target;
+            } else if (e.target.dataset.word === draggedWord) {
+                // If dropping on a Korean word, check if it matches
+                isMatch = true;
+                matchedElement = e.target;
+            }
+            
+            if (isMatch) {
+                // Mark both words as matched
+                const draggedElement = document.querySelector(`[data-word="${draggedWord}"]`) || 
+                                     document.querySelector(`[data-target="${draggedWord}"]`);
                 
-                // Remove the matched Korean word
-                const koreanWord = document.querySelector(`[data-word="${draggedWord}"]`);
-                koreanWord.style.opacity = '0.3';
-                koreanWord.draggable = false;
+                if (draggedElement && matchedElement) {
+                    draggedElement.style.opacity = '0.3';
+                    draggedElement.draggable = false;
+                    draggedElement.style.background = 'var(--success)';
+                    draggedElement.style.color = 'white';
+                    
+                    matchedElement.style.opacity = '0.3';
+                    matchedElement.draggable = false;
+                    matchedElement.style.background = 'var(--success)';
+                    matchedElement.style.color = 'white';
+                    
+                    // Show the matched pair
+                    if (draggedElement !== matchedElement) {
+                        const koreanText = draggedElement.dataset.word ? draggedElement.textContent : matchedElement.textContent;
+                        const englishText = draggedElement.dataset.target ? draggedElement.textContent : matchedElement.textContent;
+                        matchedElement.innerHTML = `${koreanText} ↔ ${englishText}`;
+                    }
+                }
             } else {
                 e.target.style.background = 'var(--error)';
                 setTimeout(() => {
@@ -597,17 +1108,425 @@
             koreanWords.forEach(word => {
                 word.style.opacity = '1';
                 word.draggable = true;
+                word.style.background = 'var(--white)';
+                word.style.color = 'var(--primary-orange)';
+                word.textContent = word.dataset.word === 'apple' ? '사과' : 
+                                 word.dataset.word === 'school' ? '학교' : '친구';
             });
             
             englishWords.forEach(word => {
-                word.textContent = 'Drag here';
+                word.style.opacity = '1';
+                word.draggable = true;
                 word.style.background = 'var(--white)';
                 word.style.color = 'var(--gray-text)';
+                word.textContent = word.dataset.target;
             });
         }
         
-        // Initialize game on page load
-        document.addEventListener('DOMContentLoaded', startVocabGame);
+        // Pronunciation Challenge Game
+        let pronunciationGameStarted = false;
+        
+        function initPronunciationGame() {
+            const options = document.querySelectorAll('.pronunciation-option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    if (!pronunciationGameStarted) return;
+                    
+                    const isCorrect = this.dataset.correct === 'true';
+                    options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+                    
+                    if (isCorrect) {
+                        this.classList.add('correct');
+                        document.getElementById('soundHint').textContent = 'Correct! 안녕하세요 means "hello"';
+                    } else {
+                        this.classList.add('incorrect');
+                        document.getElementById('soundHint').textContent = 'Try again! Click play to hear the pronunciation.';
+                    }
+                });
+                
+                // Add click-to-speak for Korean words
+                option.addEventListener('click', () => speakText(option.textContent));
+            });
+            
+            document.getElementById('playSoundBtn').addEventListener('click', function() {
+                pronunciationGameStarted = true;
+                speakText('안녕하세요');
+                document.getElementById('soundHint').textContent = 'Listen: "ahn-nyung-ha-seh-yo" (hello)';
+                this.innerHTML = '<i class="fas fa-volume-up"></i> Playing...';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-volume-up"></i> Play Pronunciation';
+                }, 2000);
+            });
+        }
+        
+        function resetPronunciationGame() {
+            pronunciationGameStarted = false;
+            const options = document.querySelectorAll('.pronunciation-option');
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            document.getElementById('soundHint').textContent = 'Click to hear "annyeonghaseyo" (hello)';
+        }
+        
+        // Sentence Builder Game
+        function initSentenceGame() {
+            const words = document.querySelectorAll('.sentence-word');
+            const dropZone = document.getElementById('sentenceDropZone');
+            
+            words.forEach(word => {
+                word.addEventListener('dragstart', dragStart);
+                word.addEventListener('click', () => speakText(word.textContent));
+            });
+            
+            dropZone.addEventListener('dragover', dragOver);
+            dropZone.addEventListener('drop', sentenceDrop);
+        }
+        
+        function sentenceDrop(e) {
+            e.preventDefault();
+            const draggedWord = e.dataTransfer.getData('text/plain');
+            const draggedElement = document.querySelector(`[data-word="${draggedWord}"]`);
+            
+            if (draggedElement && !draggedElement.classList.contains('placed')) {
+                draggedElement.classList.add('placed');
+                draggedElement.style.opacity = '0.5';
+                
+                const wordSpan = document.createElement('span');
+                wordSpan.textContent = draggedWord;
+                wordSpan.style.margin = '0 4px';
+                wordSpan.style.padding = '4px 8px';
+                wordSpan.style.background = 'var(--primary-orange)';
+                wordSpan.style.color = 'white';
+                wordSpan.style.borderRadius = '4px';
+                
+                e.target.appendChild(wordSpan);
+                
+                // Check if sentence is complete
+                const placedWords = Array.from(e.target.querySelectorAll('span')).map(span => span.textContent);
+                if (placedWords.length === 3) {
+                    const sentence = placedWords.join(' ');
+                    if (sentence === '나는 밥을 먹어요') {
+                        e.target.style.background = 'var(--success)';
+                        e.target.innerHTML = '<span style="color: white; font-weight: 700;">Correct! 나는 밥을 먹어요 (I eat rice)</span>';
+                    } else {
+                        e.target.style.background = 'var(--error)';
+                        setTimeout(() => {
+                            resetSentenceGame();
+                        }, 2000);
+                    }
+                }
+            }
+        }
+        
+        function resetSentenceGame() {
+            const words = document.querySelectorAll('.sentence-word');
+            const dropZone = document.getElementById('sentenceDropZone');
+            
+            words.forEach(word => {
+                word.classList.remove('placed');
+                word.style.opacity = '1';
+            });
+            
+            dropZone.innerHTML = '<span style="color: var(--gray-medium);">Drop words here...</span>';
+            dropZone.style.background = 'white';
+        }
+        
+        // Memory Cards Game
+        let flippedCards = [];
+        let matchedPairs = 0;
+        
+        function initMemoryGame() {
+            const cards = document.querySelectorAll('.memory-card');
+            cards.forEach(card => {
+                card.addEventListener('click', flipCard);
+                // Add speech for Korean characters
+                if (card.textContent.match(/[\u1100-\u11ff\u3130-\u318f\uac00-\ud7af]/)) {
+                    card.addEventListener('click', () => speakText(card.textContent));
+                }
+            });
+        }
+        
+        function flipCard() {
+            if (this.classList.contains('flipped') || this.classList.contains('matched') || flippedCards.length >= 2) return;
+            
+            this.classList.add('flipped');
+            flippedCards.push(this);
+            
+            if (flippedCards.length === 2) {
+                setTimeout(checkMatch, 1000);
+            }
+        }
+        
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            
+            if (card1.dataset.pair === card2.dataset.pair) {
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedPairs++;
+                
+                if (matchedPairs === 4) {
+                    document.getElementById('memoryStatus').textContent = 'Congratulations! You matched all pairs!';
+                    document.getElementById('memoryStatus').style.color = 'var(--success)';
+                }
+            } else {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+            }
+            
+            flippedCards = [];
+        }
+        
+        function resetMemoryGame() {
+            const cards = document.querySelectorAll('.memory-card');
+            cards.forEach(card => {
+                card.classList.remove('flipped', 'matched');
+            });
+            flippedCards = [];
+            matchedPairs = 0;
+            document.getElementById('memoryStatus').textContent = 'Click cards to flip them and find matches!';
+            document.getElementById('memoryStatus').style.color = 'var(--gray-medium)';
+        }
+        
+        // Speed Typing Game
+        let typingWords = ['사과', '학교', '친구', '물', '집', '음식', '시간', '사람', '책', '컴퓨터'];
+        let currentWordIndex = 0;
+        let typingScore = 0;
+        let typingTimer = 30;
+        let typingInterval;
+        
+        function startTypingGame() {
+            resetTypingGame();
+            document.getElementById('typingInput').focus();
+            typingInterval = setInterval(updateTypingTimer, 1000);
+            
+            document.getElementById('typingInput').addEventListener('input', checkTypingInput);
+            
+            // Add click-to-speak to the target word
+            document.getElementById('typingWord').addEventListener('click', function() {
+                speakText(this.textContent);
+            });
+        }
+        
+        function checkTypingInput(e) {
+            const input = e.target.value;
+            const currentWord = typingWords[currentWordIndex];
+            
+            if (input === currentWord) {
+                typingScore++;
+                document.getElementById('typingScore').textContent = typingScore;
+                currentWordIndex = (currentWordIndex + 1) % typingWords.length;
+                document.getElementById('typingWord').textContent = typingWords[currentWordIndex];
+                e.target.value = '';
+                
+                // Calculate WPM
+                const timeElapsed = 30 - typingTimer;
+                if (timeElapsed > 0) {
+                    const wpm = Math.round((typingScore / timeElapsed) * 60);
+                    document.getElementById('typingWPM').textContent = wpm;
+                }
+            }
+        }
+        
+        function updateTypingTimer() {
+            typingTimer--;
+            document.getElementById('typingTime').textContent = typingTimer;
+            
+            if (typingTimer <= 0) {
+                clearInterval(typingInterval);
+                document.getElementById('typingInput').disabled = true;
+                document.getElementById('typingWord').textContent = 'Time\'s up!';
+            }
+        }
+        
+        function resetTypingGame() {
+            clearInterval(typingInterval);
+            currentWordIndex = 0;
+            typingScore = 0;
+            typingTimer = 30;
+            
+            document.getElementById('typingWord').textContent = typingWords[0];
+            document.getElementById('typingInput').value = '';
+            document.getElementById('typingInput').disabled = false;
+            document.getElementById('typingScore').textContent = '0';
+            document.getElementById('typingTime').textContent = '30';
+            document.getElementById('typingWPM').textContent = '0';
+        }
+        
+        // Cultural Quiz Game
+        const quizQuestions = [
+            {
+                question: "What is the traditional Korean greeting bow called?",
+                options: ["Jol", "Jol", "Kowtow", "Namaste"],
+                correct: 1,
+                fact: "Jol (절) is the traditional Korean bow used for greetings and respect."
+            },
+            {
+                question: "What is the national dish of South Korea?",
+                options: ["Sushi", "Kimchi", "Bibimbap", "Ramen"],
+                correct: 2,
+                fact: "Bibimbap is a popular Korean rice dish with various vegetables and meat."
+            },
+            {
+                question: "What does 'K-pop' stand for?",
+                options: ["Korean Pop", "Korean Popular", "Korean People", "Korean Music"],
+                correct: 0,
+                fact: "K-pop refers to popular music from South Korea, known worldwide."
+            },
+            {
+                question: "Which Korean holiday celebrates the harvest moon?",
+                options: ["Seollal", "Chuseok", "Dano", "Hansik"],
+                correct: 1,
+                fact: "Chuseok is the Korean harvest festival, similar to Thanksgiving."
+            },
+            {
+                question: "What is the Korean word for 'family'?",
+                options: ["Chingu", "Gajok", "Jip", "Eomma"],
+                correct: 1,
+                fact: "Gajok (가족) means family in Korean."
+            }
+        ];
+        
+        let currentQuestionIndex = 0;
+        let quizScore = 0;
+        
+        function initQuizGame() {
+            loadQuestion();
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach((option, index) => {
+                option.addEventListener('click', () => selectQuizAnswer(index));
+            });
+        }
+        
+        function loadQuestion() {
+            const question = quizQuestions[currentQuestionIndex];
+            document.getElementById('quizQuestion').textContent = question.question;
+            
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach((option, index) => {
+                option.textContent = question.options[index];
+                option.classList.remove('correct', 'incorrect');
+                option.style.pointerEvents = 'auto';
+            });
+        }
+        
+        function selectQuizAnswer(selectedIndex) {
+            const question = quizQuestions[currentQuestionIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            
+            options.forEach(option => option.style.pointerEvents = 'none');
+            
+            if (selectedIndex === question.correct) {
+                options[selectedIndex].classList.add('correct');
+                quizScore++;
+                document.getElementById('quizScore').textContent = quizScore;
+            } else {
+                options[selectedIndex].classList.add('incorrect');
+                options[question.correct].classList.add('correct');
+            }
+            
+            setTimeout(() => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < quizQuestions.length) {
+                    loadQuestion();
+                } else {
+                    endQuiz();
+                }
+            }, 2000);
+        }
+        
+        function endQuiz() {
+            document.getElementById('quizQuestion').textContent = `Quiz Complete! You got ${quizScore} out of ${quizQuestions.length} correct.`;
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(option => option.style.display = 'none');
+        }
+        
+        function resetQuizGame() {
+            currentQuestionIndex = 0;
+            quizScore = 0;
+            document.getElementById('quizScore').textContent = '0';
+            
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(option => option.style.display = 'block');
+            
+            initQuizGame();
+        }
+        
+        // Initialize all games on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            startVocabGame();
+            initPronunciationGame();
+            initSentenceGame();
+            initMemoryGame();
+            initQuizGame();
+        });
     </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>K-Focus</h3>
+                <p style="color: var(--gray-light); margin-bottom: var(--space-lg);">
+                    The first Korean learning platform designed specifically for ADHD brains. 
+                    Neuroscience-backed, culturally immersive, and genuinely accessible.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Learning Features</h3>
+                <ul class="footer-links">
+                    <li><a href="games.html#vocab-demo"><i class="fas fa-chevron-right"></i> Vocabulary Builder</a></li>
+                    <li><a href="games.html"><i class="fas fa-chevron-right"></i> Interactive Games</a></li>
+                    <li><a href="progress.html"><i class="fas fa-chevron-right"></i> Progress Tracking</a></li>
+                    <li><a href="#features"><i class="fas fa-chevron-right"></i> ADHD Settings</a></li>
+                    <li><a href="resources.html#culture"><i class="fas fa-chevron-right"></i> Cultural Immersion</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="resources.html#guide"><i class="fas fa-chevron-right"></i> ADHD Learning Guide</a></li>
+                    <li><a href="resources.html#culture"><i class="fas fa-chevron-right"></i> Korean Culture Hub</a></li>
+                    <li><a href="resources.html#research"><i class="fas fa-chevron-right"></i> Research & Science</a></li>
+                    <li><a href="resources.html#community"><i class="fas fa-chevron-right"></i> Community Forum</a></li>
+                    <li><a href="resources.html#teachers"><i class="fas fa-chevron-right"></i> Teacher Resources</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Get Started</h3>
+                <ul class="footer-links">
+                    <li><a href="#demo"><i class="fas fa-chevron-right"></i> Free Trial</a></li>
+                    <li><a href="#pricing"><i class="fas fa-chevron-right"></i> Pricing</a></li>
+                    <li><a href="about.html#team"><i class="fas fa-chevron-right"></i> For Schools</a></li>
+                    <li><a href="#beta"><i class="fas fa-chevron-right"></i> Beta Testing</a></li>
+                    <li><a href="about.html#contact"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2024 K-Focus. All rights reserved. Designed for ADHD brains, enjoyed by all learners.</p>
+            <p style="margin-top: var(--space-sm); font-size: 0.8rem;">
+                <a href="#" style="color: var(--gray-light); text-decoration: none;">Privacy Policy</a> • 
+                <a href="#" style="color: var(--gray-light); text-decoration: none;">Terms of Service</a> • 
+                <a href="#" style="color: var(--gray-light); text-decoration: none;">Accessibility Statement</a>
+            </p>
+        </div>
+    </footer>
 </body>
 </html>

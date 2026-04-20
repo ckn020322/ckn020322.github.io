@@ -353,6 +353,104 @@
                 padding: var(--space-lg);
             }
         }
+        
+        /* Footer Styles */
+        .footer {
+            background: var(--gray-text);
+            color: white;
+            padding: var(--space-xxxl) var(--space-xl) var(--space-xl);
+            margin-top: var(--space-xxxl);
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: var(--space-xxl);
+        }
+        
+        .footer-column h3 {
+            color: white;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: var(--space-lg);
+            font-weight: 600;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: var(--space-md);
+        }
+        
+        .footer-links a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-orange);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-round);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition-normal);
+        }
+        
+        .social-link:hover {
+            background: var(--primary-orange);
+            transform: translateY(-2px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: var(--space-xl);
+            margin-top: var(--space-xl);
+            text-align: center;
+        }
+        
+        .footer-bottom p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--gray-light);
+        }
+        
+        /* Mobile Footer */
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: var(--space-xl);
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -373,8 +471,8 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="games.html">Games</a></li>
                     <li><a href="progress.html" class="active">Progress</a></li>
-                    <li><a href="#">Resources</a></li>
-                    <li><a href="#">About</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="about.html">About</a></li>
                 </ul>
             </nav>
             
@@ -671,5 +769,74 @@
             }
         });
     </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>K-Focus</h3>
+                <p style="color: var(--gray-light); margin-bottom: var(--space-lg);">
+                    The first Korean learning platform designed specifically for ADHD brains. 
+                    Neuroscience-backed, culturally immersive, and genuinely accessible.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Learning Features</h3>
+                <ul class="footer-links">
+                    <li><a href="games.html#vocab-demo"><i class="fas fa-chevron-right"></i> Vocabulary Builder</a></li>
+                    <li><a href="games.html"><i class="fas fa-chevron-right"></i> Interactive Games</a></li>
+                    <li><a href="progress.html"><i class="fas fa-chevron-right"></i> Progress Tracking</a></li>
+                    <li><a href="#features"><i class="fas fa-chevron-right"></i> ADHD Settings</a></li>
+                    <li><a href="resources.html#culture"><i class="fas fa-chevron-right"></i> Cultural Immersion</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="resources.html#guide"><i class="fas fa-chevron-right"></i> ADHD Learning Guide</a></li>
+                    <li><a href="resources.html#culture"><i class="fas fa-chevron-right"></i> Korean Culture Hub</a></li>
+                    <li><a href="resources.html#research"><i class="fas fa-chevron-right"></i> Research & Science</a></li>
+                    <li><a href="resources.html#community"><i class="fas fa-chevron-right"></i> Community Forum</a></li>
+                    <li><a href="resources.html#teachers"><i class="fas fa-chevron-right"></i> Teacher Resources</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Get Started</h3>
+                <ul class="footer-links">
+                    <li><a href="#demo"><i class="fas fa-chevron-right"></i> Free Trial</a></li>
+                    <li><a href="#pricing"><i class="fas fa-chevron-right"></i> Pricing</a></li>
+                    <li><a href="about.html#team"><i class="fas fa-chevron-right"></i> For Schools</a></li>
+                    <li><a href="#beta"><i class="fas fa-chevron-right"></i> Beta Testing</a></li>
+                    <li><a href="about.html#contact"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2024 K-Focus. All rights reserved. Designed for ADHD brains, enjoyed by all learners.</p>
+            <p style="margin-top: var(--space-sm); font-size: 0.8rem;">
+                <a href="#" style="color: var(--gray-light); text-decoration: none;">Privacy Policy</a> • 
+                <a href="#" style="color: var(--gray-light); text-decoration: none;">Terms of Service</a> • 
+                <a href="#" style="color: var(--gray-light); text-decoration: none;">Accessibility Statement</a>
+            </p>
+        </div>
+    </footer>
 </body>
 </html>
